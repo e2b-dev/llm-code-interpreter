@@ -9,10 +9,11 @@ import { ValidateError } from 'tsoa'
 import morgan from 'morgan'
 import cors from 'cors'
 
-// import pluginManifest from '!!raw-loader!../../.well-known/ai-plugin.json'
+import pluginManifest from '!!raw-loader!../../.well-known/ai-plugin.json'
 import pluginAPISpec from '!!raw-loader!../pluginapi.yaml'
 
 import { RegisterRoutes } from './generated/routes'
+import { defaultPort } from './constants'
 
 export const app = express()
 
@@ -56,16 +57,28 @@ app.use(
   },
 )
 
-// app.use(
-//   '.well-known/ai-plugin.json',
-//   (req, res) => {
-//     res.send(pluginManifest)
-//   }
-// )
+app.use(
+  '.well-known/ai-plugin.json',
+  (_, res) => {
+    res
+      .setHeader('Content-Type', 'text/json')
+      .status(200)
+      .send(pluginManifest)
+  }
+)
 
 app.use(
   'openapi.yaml',
-  (req, res) => {
-    res.send(pluginAPISpec)
+  (_, res) => {
+    res
+      .setHeader('Content-Type', 'text/yaml')
+      .status(200)
+      .send(pluginAPISpec)
   }
+)
+
+const port = process.env.PORT || defaultPort
+
+app.listen(port, () =>
+  console.log(`Listening at http://localhost:${port}`)
 )

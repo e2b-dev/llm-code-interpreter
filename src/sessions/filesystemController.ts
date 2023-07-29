@@ -33,6 +33,7 @@ export class FilesystemController extends Controller {
       .session
       .filesystem!
       .list(path)
+
     return {
       entries,
     }
@@ -72,6 +73,7 @@ export class FilesystemController extends Controller {
       .session
       .filesystem!
       .read(path)
+
     return {
       content,
     }

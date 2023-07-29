@@ -2,7 +2,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const esbuild = require('esbuild')
-const path = require('path')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -27,6 +26,6 @@ esbuild
     sourcemap: 'both',
     plugins: [makeAllPackagesExternalPlugin],
     outdir: 'lib',
-    entryPoints: ['src/server.ts'],
+    entryPoints: ['src/index.ts'],
   })
   .catch(() => process.exit(1))

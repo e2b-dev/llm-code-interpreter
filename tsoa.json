@@ -1,8 +1,8 @@
 {
-  "entryFile": "src/app.ts",
+  "entryFile": "src/index.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": [
-    "src/**/*Controller.ts"
+    "src/plugin/*Controller.ts"
   ],
   "ignore": [
     "src/generated"
@@ -10,10 +10,9 @@
   "spec": {
     "outputDirectory": "./",
     "specVersion": 3,
-    "host": "localhost:49160",
+    "host": "localhost:3000",
     "yaml": true,
-    "specFileBaseName": "openapi",
-    "basePath": "/v1"
+    "specFileBaseName": "openapi"
   },
   "routes": {
     "routesDir": "src/generated"

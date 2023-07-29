@@ -26,4 +26,4 @@ COPY --from=modules ./app ./app
 COPY --from=build ./app/lib ./app/lib
 
 WORKDIR /app
-CMD ["node", "lib/server.js"]
+ENTRYPOINT ["sh", "-c", "node", "lib/index.js"]

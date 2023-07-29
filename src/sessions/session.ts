@@ -102,6 +102,16 @@ export class CachedSession {
     return cachedProcess
   }
 
+  static async findOrStartSession({ sessionID, envID }: { sessionID: string, envID: string }) {
+    try {
+      return CachedSession.findSession(sessionID)
+    } catch {
+      const cachedSession = new CachedSession(envID)
+      await cachedSession.init()
+      return cachedSession
+    }
+  }
+
   static findSession(id: string) {
     const cachedSession = sessionCache.get(id) as CachedSession
     if (!cachedSession) throw new Error('Session does not exist')

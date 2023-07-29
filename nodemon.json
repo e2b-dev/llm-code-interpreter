@@ -6,5 +6,5 @@
     "src/generated/**/*"
   ],
   "ext": "ts",
-  "exec": "npx tsoa routes && npx tsx src/server.ts"
+  "exec": "npx tsoa routes && npx tsx src/index.ts"
 }

@@ -5,7 +5,6 @@ DEV.md
 LICENSE
 nodemon.json
 openapi.yaml
-plugin-api.yaml
 tsconfig.tsbuildinfo
 README.md
 .gitignore

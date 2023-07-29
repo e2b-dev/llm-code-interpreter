@@ -3,33 +3,12 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { FilesystemController } from './../sessions/filesystemController';
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { ProcessController } from './../sessions/processesController';
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { SessionsController } from './../sessions/sessionsController';
+import { FilesystemController } from './../plugin/filesystemController';
 import type { RequestHandler, Router } from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "EntryInfo": {
-        "dataType": "refObject",
-        "properties": {
-            "isDir": {"dataType":"boolean","required":true},
-            "name": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ListFilesystemDirResponse": {
-        "dataType": "refObject",
-        "properties": {
-            "entries": {"dataType":"array","array":{"dataType":"refObject","ref":"EntryInfo"},"required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ReadFilesystemFileResponse": {
         "dataType": "refObject",
         "properties": {
@@ -38,84 +17,9 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "OutType.Stderr": {
-        "dataType": "refEnum",
-        "enums": ["Stderr"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "OutType": {
-        "dataType": "refEnum",
-        "enums": ["Stdout","Stderr"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "OutStderrResponse": {
-        "dataType": "refObject",
-        "properties": {
-            "type": {"ref":"OutType.Stderr","required":true},
-            "timestamp": {"dataType":"double","required":true},
-            "line": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "OutType.Stdout": {
-        "dataType": "refEnum",
-        "enums": ["Stdout"],
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "OutStdoutResponse": {
-        "dataType": "refObject",
-        "properties": {
-            "type": {"ref":"OutType.Stdout","required":true},
-            "timestamp": {"dataType":"double","required":true},
-            "line": {"dataType":"string","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ProcessResponse": {
-        "dataType": "refObject",
-        "properties": {
-            "stderr": {"dataType":"array","array":{"dataType":"refObject","ref":"OutStderrResponse"},"required":true},
-            "stdout": {"dataType":"array","array":{"dataType":"refObject","ref":"OutStdoutResponse"},"required":true},
-            "processID": {"dataType":"string","required":true},
-            "finished": {"dataType":"boolean","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "EnvVars": {
+    "Template": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"additionalProperties":{"dataType":"string"},"validators":{}},
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "StartProcessParams": {
-        "dataType": "refObject",
-        "properties": {
-            "cmd": {"dataType":"string","required":true},
-            "envVars": {"ref":"EnvVars"},
-            "rootdir": {"dataType":"string"},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "OpenPort": {
-        "dataType": "refObject",
-        "properties": {
-            "State": {"dataType":"string","required":true},
-            "Ip": {"dataType":"string","required":true},
-            "Port": {"dataType":"double","required":true},
-        },
-        "additionalProperties": false,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "SessionResponse": {
-        "dataType": "refObject",
-        "properties": {
-            "id": {"dataType":"string","required":true},
-            "ports": {"dataType":"array","array":{"dataType":"refObject","ref":"OpenPort"},"required":true},
-        },
-        "additionalProperties": false,
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Nodejs"]},{"dataType":"enum","enums":["Go"]},{"dataType":"enum","enums":["Bash"]},{"dataType":"enum","enums":["Rust"]},{"dataType":"enum","enums":["Python3"]},{"dataType":"enum","enums":["PHP"]},{"dataType":"enum","enums":["Java"]},{"dataType":"enum","enums":["Perl"]},{"dataType":"enum","enums":["DotNET"]}],"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -128,13 +32,14 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
-        app.get('/sessions/:sessionID/filesystem/dir',
+        app.get('/filesystem/file',
             ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.listFilesystemDir)),
+            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.readFile)),
 
-            function FilesystemController_listFilesystemDir(request: any, response: any, next: any) {
+            function FilesystemController_readFile(request: any, response: any, next: any) {
             const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
+                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
+                    template: {"in":"header","name":"template","required":true,"ref":"Template"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
             };
 
@@ -147,98 +52,21 @@ export function RegisterRoutes(app: Router) {
                 const controller = new FilesystemController();
 
 
-              const promise = controller.listFilesystemDir.apply(controller, validatedArgs as any);
+              const promise = controller.readFile.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.put('/sessions/:sessionID/filesystem/dir',
+        app.put('/filesystem/file',
             ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.makeFilesystemDir)),
+            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.writeFile)),
 
-            function FilesystemController_makeFilesystemDir(request: any, response: any, next: any) {
+            function FilesystemController_writeFile(request: any, response: any, next: any) {
             const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    path: {"in":"query","name":"path","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new FilesystemController();
-
-
-              const promise = controller.makeFilesystemDir.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.delete('/sessions/:sessionID/filesystem',
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.deleteFilesystemEntry)),
-
-            function FilesystemController_deleteFilesystemEntry(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    path: {"in":"query","name":"path","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new FilesystemController();
-
-
-              const promise = controller.deleteFilesystemEntry.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/sessions/:sessionID/filesystem/file',
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.readFilesystemFile)),
-
-            function FilesystemController_readFilesystemFile(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    path: {"in":"query","name":"path","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new FilesystemController();
-
-
-              const promise = controller.readFilesystemFile.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.put('/sessions/:sessionID/filesystem/file',
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.writeFilesystemFile)),
-
-            function FilesystemController_writeFilesystemFile(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
+                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
+                    template: {"in":"header","name":"template","required":true,"ref":"Template"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
                     content: {"in":"body-prop","name":"content","required":true,"dataType":"string"},
             };
@@ -252,190 +80,7 @@ export function RegisterRoutes(app: Router) {
                 const controller = new FilesystemController();
 
 
-              const promise = controller.writeFilesystemFile.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/sessions/:sessionID/processes',
-            ...(fetchMiddlewares<RequestHandler>(ProcessController)),
-            ...(fetchMiddlewares<RequestHandler>(ProcessController.prototype.startProcess)),
-
-            function ProcessController_startProcess(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"StartProcessParams"},
-                    wait: {"in":"query","name":"wait","dataType":"boolean"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new ProcessController();
-
-
-              const promise = controller.startProcess.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.delete('/sessions/:sessionID/processes/:processID',
-            ...(fetchMiddlewares<RequestHandler>(ProcessController)),
-            ...(fetchMiddlewares<RequestHandler>(ProcessController.prototype.stopProcess)),
-
-            function ProcessController_stopProcess(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    processID: {"in":"path","name":"processID","required":true,"dataType":"string"},
-                    results: {"in":"query","name":"results","dataType":"boolean"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new ProcessController();
-
-
-              const promise = controller.stopProcess.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/sessions/:sessionID/processes/:processID/stdin',
-            ...(fetchMiddlewares<RequestHandler>(ProcessController)),
-            ...(fetchMiddlewares<RequestHandler>(ProcessController.prototype.writeProcessStdin)),
-
-            function ProcessController_writeProcessStdin(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    processID: {"in":"path","name":"processID","required":true,"dataType":"string"},
-                    stdin: {"in":"body-prop","name":"stdin","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new ProcessController();
-
-
-              const promise = controller.writeProcessStdin.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/sessions/:sessionID/processes/:processID',
-            ...(fetchMiddlewares<RequestHandler>(ProcessController)),
-            ...(fetchMiddlewares<RequestHandler>(ProcessController.prototype.getProcess)),
-
-            function ProcessController_getProcess(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-                    processID: {"in":"path","name":"processID","required":true,"dataType":"string"},
-                    wait: {"in":"query","name":"wait","dataType":"boolean"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new ProcessController();
-
-
-              const promise = controller.getProcess.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/sessions',
-            ...(fetchMiddlewares<RequestHandler>(SessionsController)),
-            ...(fetchMiddlewares<RequestHandler>(SessionsController.prototype.createSessions)),
-
-            function SessionsController_createSessions(request: any, response: any, next: any) {
-            const args = {
-                    envID: {"in":"body-prop","name":"envID","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new SessionsController();
-
-
-              const promise = controller.createSessions.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.delete('/sessions/:sessionID',
-            ...(fetchMiddlewares<RequestHandler>(SessionsController)),
-            ...(fetchMiddlewares<RequestHandler>(SessionsController.prototype.deleteSession)),
-
-            function SessionsController_deleteSession(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new SessionsController();
-
-
-              const promise = controller.deleteSession.apply(controller, validatedArgs as any);
-              promiseHandler(controller, promise, response, undefined, next);
-            } catch (err) {
-                return next(err);
-            }
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/sessions/:sessionID',
-            ...(fetchMiddlewares<RequestHandler>(SessionsController)),
-            ...(fetchMiddlewares<RequestHandler>(SessionsController.prototype.getSession)),
-
-            function SessionsController_getSession(request: any, response: any, next: any) {
-            const args = {
-                    sessionID: {"in":"path","name":"sessionID","required":true,"dataType":"string"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-
-                const controller = new SessionsController();
-
-
-              const promise = controller.getSession.apply(controller, validatedArgs as any);
+              const promise = controller.writeFile.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

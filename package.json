@@ -14,10 +14,6 @@
     "type": "git",
     "url": "https://github.com/e2b/chatgpt-plugin/tree/main"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "sideEffects": false,
   "dependencies": {
     "@devbookhq/sdk": "^2.6.82",
     "cors": "^2.8.5",
@@ -38,12 +34,12 @@
     "tsx": "^3.12.7",
     "typescript": "^5.1.6"
   },
-  "main": "lib/server.js",
+  "main": "lib/index.js",
   "scripts": {
     "dev": "nodemon",
     "build": "npm run check-types && npm run generate && ./scripts/build.js",
+    "start": "node lib/index.js",
     "generate": "tsoa spec-and-routes",
-    "check-types": "tsc --noEmit",
-    "start": "node lib/server.js"
+    "check-types": "tsc --noEmit"
   }
 }

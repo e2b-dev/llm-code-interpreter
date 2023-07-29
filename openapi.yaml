@@ -5,27 +5,6 @@ components:
     requestBodies: {}
     responses: {}
     schemas:
-        EntryInfo:
-            properties:
-                isDir:
-                    type: boolean
-                name:
-                    type: string
-            required:
-                - isDir
-                - name
-            type: object
-            additionalProperties: false
-        ListFilesystemDirResponse:
-            properties:
-                entries:
-                    items:
-                        $ref: '#/components/schemas/EntryInfo'
-                    type: array
-            required:
-                - entries
-            type: object
-            additionalProperties: false
         ReadFilesystemFileResponse:
             properties:
                 content:
@@ -34,120 +13,23 @@ components:
                 - content
             type: object
             additionalProperties: false
-        OutType.Stderr:
-            enum:
-                - Stderr
+        Template:
             type: string
-        OutType:
             enum:
-                - Stdout
-                - Stderr
-            type: string
-        OutStderrResponse:
-            properties:
-                type:
-                    $ref: '#/components/schemas/OutType.Stderr'
-                timestamp:
-                    type: number
-                    format: double
-                line:
-                    type: string
-            required:
-                - type
-                - timestamp
-                - line
-            type: object
-            additionalProperties: false
-        OutType.Stdout:
-            enum:
-                - Stdout
-            type: string
-        OutStdoutResponse:
-            properties:
-                type:
-                    $ref: '#/components/schemas/OutType.Stdout'
-                timestamp:
-                    type: number
-                    format: double
-                line:
-                    type: string
-            required:
-                - type
-                - timestamp
-                - line
-            type: object
-            additionalProperties: false
-        ProcessResponse:
-            properties:
-                stderr:
-                    items:
-                        $ref: '#/components/schemas/OutStderrResponse'
-                    type: array
-                stdout:
-                    items:
-                        $ref: '#/components/schemas/OutStdoutResponse'
-                    type: array
-                processID:
-                    type: string
-                finished:
-                    type: boolean
-            required:
-                - stderr
-                - stdout
-                - processID
-                - finished
-            type: object
-            additionalProperties: false
-        EnvVars:
-            properties: {}
-            additionalProperties:
-                type: string
-            type: object
-        StartProcessParams:
-            properties:
-                cmd:
-                    type: string
-                envVars:
-                    $ref: '#/components/schemas/EnvVars'
-                rootdir:
-                    type: string
-            required:
-                - cmd
-            type: object
-            additionalProperties: false
-        OpenPort:
-            properties:
-                State:
-                    type: string
-                Ip:
-                    type: string
-                Port:
-                    type: number
-                    format: double
-            required:
-                - State
-                - Ip
-                - Port
-            type: object
-            additionalProperties: false
-        SessionResponse:
-            properties:
-                id:
-                    type: string
-                ports:
-                    items:
-                        $ref: '#/components/schemas/OpenPort'
-                    type: array
-            required:
-                - id
-                - ports
-            type: object
-            additionalProperties: false
+                - Nodejs
+                - Go
+                - Bash
+                - Rust
+                - Python3
+                - PHP
+                - Java
+                - Perl
+                - DotNET
     securitySchemes: {}
 info:
-    title: '@e2b/chatgpt-plugin-api'
+    title: '@e2b/chatgpt-plugin'
     version: 0.1.0
-    description: 'API for e2b ChatGPT Plugin'
+    description: 'e2b ChatGPT Plugin'
     license:
         name: 'SEE LICENSE IN LICENSE'
     contact:
@@ -156,72 +38,9 @@ info:
         url: 'https://e2b.dev'
 openapi: 3.0.0
 paths:
-    '/sessions/{sessionID}/filesystem/dir':
+    /filesystem/file:
         get:
-            operationId: ListFilesystemDir
-            responses:
-                '200':
-                    description: Ok
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ListFilesystemDirResponse'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: query
-                    name: path
-                    required: true
-                    schema:
-                        type: string
-        put:
-            operationId: MakeFilesystemDir
-            responses:
-                '204':
-                    description: 'No content'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: query
-                    name: path
-                    required: true
-                    schema:
-                        type: string
-    '/sessions/{sessionID}/filesystem':
-        delete:
-            operationId: DeleteFilesystemEntry
-            responses:
-                '204':
-                    description: 'No content'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: query
-                    name: path
-                    required: true
-                    schema:
-                        type: string
-    '/sessions/{sessionID}/filesystem/file':
-        get:
-            operationId: ReadFilesystemFile
+            operationId: ReadFile
             responses:
                 '200':
                     description: Ok
@@ -232,11 +51,17 @@ paths:
             security: []
             parameters:
                 -
-                    in: path
-                    name: sessionID
+                    in: header
+                    name: openai-conversation-id
                     required: true
                     schema:
                         type: string
+                -
+                    in: header
+                    name: template
+                    required: true
+                    schema:
+                        $ref: '#/components/schemas/Template'
                 -
                     in: query
                     name: path
@@ -244,18 +69,24 @@ paths:
                     schema:
                         type: string
         put:
-            operationId: WriteFilesystemFile
+            operationId: WriteFile
             responses:
                 '204':
                     description: 'No content'
             security: []
             parameters:
                 -
-                    in: path
-                    name: sessionID
+                    in: header
+                    name: openai-conversation-id
                     required: true
                     schema:
                         type: string
+                -
+                    in: header
+                    name: template
+                    required: true
+                    schema:
+                        $ref: '#/components/schemas/Template'
                 -
                     in: query
                     name: path
@@ -273,182 +104,6 @@ paths:
                             required:
                                 - content
                             type: object
-    '/sessions/{sessionID}/processes':
-        post:
-            operationId: StartProcess
-            responses:
-                '200':
-                    description: '`processID` and all `stdout` and `stderr` that the process outputted until now.'
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProcessResponse'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    description: 'if true the request will wait until the process ends and then return the `stdout`, `stderr` and `processID`.'
-                    in: query
-                    name: wait
-                    required: false
-                    schema:
-                        type: boolean
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/StartProcessParams'
-    '/sessions/{sessionID}/processes/{processID}':
-        delete:
-            operationId: StopProcess
-            responses:
-                '200':
-                    description: Ok
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProcessResponse'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: path
-                    name: processID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: query
-                    name: results
-                    required: false
-                    schema:
-                        type: boolean
-        get:
-            operationId: GetProcess
-            responses:
-                '200':
-                    description: '`processID` and all `stdout` and `stderr` that the process outputted until now.'
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ProcessResponse'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: path
-                    name: processID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    description: 'if true the request will wait until the process ends and then return the `stdout`, `stderr` and `processID`.'
-                    in: query
-                    name: wait
-                    required: false
-                    schema:
-                        type: boolean
-    '/sessions/{sessionID}/processes/{processID}/stdin':
-        post:
-            operationId: WriteProcessStdin
-            responses:
-                '204':
-                    description: 'No content'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: path
-                    name: processID
-                    required: true
-                    schema:
-                        type: string
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            properties:
-                                stdin:
-                                    type: string
-                            required:
-                                - stdin
-                            type: object
-    /sessions:
-        post:
-            operationId: CreateSessions
-            responses:
-                '200':
-                    description: Ok
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/SessionResponse'
-            security: []
-            parameters: []
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            properties:
-                                envID:
-                                    type: string
-                            required:
-                                - envID
-                            type: object
-    '/sessions/{sessionID}':
-        delete:
-            operationId: DeleteSession
-            responses:
-                '204':
-                    description: 'No content'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
-        get:
-            operationId: GetSession
-            responses:
-                '200':
-                    description: Ok
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/SessionResponse'
-            security: []
-            parameters:
-                -
-                    in: path
-                    name: sessionID
-                    required: true
-                    schema:
-                        type: string
 servers:
     -
-        url: 'https://localhost:49160/v1'
+        url: 'https://localhost:3000/'

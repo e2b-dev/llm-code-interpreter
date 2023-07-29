@@ -81,7 +81,7 @@ export class ProcessController extends Controller {
 
   /**
    * 
-   * @param sessioniD
+   * @param sessionID
    * @param processID 
    * @param wait if true the request will wait until the process ends and then return the `stdout`, `stderr` and `processID`.
    * @returns `processID` and all `stdout` and `stderr` that the process outputted until now.
