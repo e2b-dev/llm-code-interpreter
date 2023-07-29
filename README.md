@@ -29,9 +29,9 @@ Here is a few ideas:
 - Install programs via terminal
 
 ## Installation
-There are two options
-- Wait for OpenAI to approve our plugin in their store
-- Have developer access to ChatGPT plugins and install the plugin by following [this](https://github.com/openai/plugins-quickstart#setup-locally).
+There are two ways:
+1. Wait for OpenAI to approve our plugin in their store
+2. Have developer access to ChatGPT plugins and install the plugin by following [this](https://github.com/openai/plugins-quickstart#setup-locally).
 
 ## Usage examples
 > Install youtube-dl and use it to download this video https://www.youtube.com/watch?v=jNQXAC9IVRw
