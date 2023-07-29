@@ -97,7 +97,7 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/ExecuteCommandRequest'
-    /file:
+    /files:
         get:
             operationId: ReadFile
             responses:

@@ -18,7 +18,7 @@ interface ReadFileResponse {
   content: string
 }
 
-@Route('file')
+@Route('files')
 export class FilesystemController extends Controller {
   @Get()
   public async readFile(
