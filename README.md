@@ -30,3 +30,6 @@ Here is a few ideas:
 
 ## Example prompts
 [TODO]
+
+## What is e2b?
+E2B is the company behind this plugin. We're building an operating system for AI agents. A set of low-level APIs for building agents (debugging, auth, deploy, monitor, and more) and cloud environments for deploying the agents.
