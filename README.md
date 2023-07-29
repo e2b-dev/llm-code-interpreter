@@ -40,5 +40,16 @@ There are two ways:
 
 > Clone this repo "https://github.com/e2b-dev/chatgpt-plugin", fix any typos in readme push it
 
+## How to upload & download files
+The ChatGPT Code Interpreter supports uploading and downloading files. While the e2b code interpreter doesn't support this functionality natively, you can "hack" around it just by using the `curl` command and something like a S3 bucket. 
+
+### Uploading your files
+1. Get S3 bucket (or any alternative)
+2. Upload your files there and make them public or accessible with a signed URL
+3. Tell ChatGPT to download that files using curl
+
+### Download files
+1. Tell ChaGPT to upload its files to S3 bucket using curl
+
 ## What is e2b?
 E2B is the company behind this plugin. We're building an operating system for AI agents. A set of low-level APIs for building agents (debugging, auth, deploy, monitor, and more) and cloud environments for deploying the agents.
