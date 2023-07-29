@@ -1,0 +1,15 @@
+Dockerfile
+DEV.md
+.devcontainer
+.github
+LICENSE
+nodemon.json
+openapi.yaml
+plugin-api.yaml
+tsconfig.tsbuildinfo
+README.md
+.gitignore
+.venv
+lib
+node_modules
+.git

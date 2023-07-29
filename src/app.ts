@@ -7,19 +7,23 @@ import express, {
 } from 'express'
 import { ValidateError } from 'tsoa'
 import morgan from 'morgan'
+import cors from 'cors'
+
+// import pluginManifest from '!!raw-loader!../../.well-known/ai-plugin.json'
+import pluginAPISpec from '!!raw-loader!../pluginapi.yaml'
 
 import { RegisterRoutes } from './generated/routes'
 
 export const app = express()
 
 app.use(
+  cors(),
   urlencoded({
     extended: true,
   }),
   morgan('tiny'),
+  json(),
 )
-
-app.use(json())
 
 RegisterRoutes(app)
 
@@ -50,4 +54,18 @@ app.use(
     }
     next()
   },
+)
+
+// app.use(
+//   '.well-known/ai-plugin.json',
+//   (req, res) => {
+//     res.send(pluginManifest)
+//   }
+// )
+
+app.use(
+  'openapi.yaml',
+  (req, res) => {
+    res.send(pluginAPISpec)
+  }
 )

@@ -1,7 +1,7 @@
 {
-  "name": "@e2b/chatgpt-plugin-api",
+  "name": "@e2b/chatgpt-plugin",
   "version": "0.1.0",
-  "description": "API for e2b ChatGPT Plugin",
+  "description": "e2b ChatGPT Plugin",
   "homepage": "https://e2b.dev",
   "license": "SEE LICENSE IN LICENSE",
   "author": {
@@ -12,7 +12,7 @@
   "bugs": "https://github.com/e2b/chatgpt-plugin/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/e2b/chatgpt-plugin/tree/main/api"
+    "url": "https://github.com/e2b/chatgpt-plugin/tree/main"
   },
   "publishConfig": {
     "access": "public"
@@ -20,6 +20,7 @@
   "sideEffects": false,
   "dependencies": {
     "@devbookhq/sdk": "^2.6.82",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
@@ -27,6 +28,7 @@
     "tsoa": "^5.1.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/method-override": "^0.0.32",
     "@types/morgan": "^1.9.4",
