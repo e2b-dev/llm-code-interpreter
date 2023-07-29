@@ -3,7 +3,7 @@
 E2B plugin for ChatGPT is like **code interpreter on steroids**.
 
 E2B gives your ChatGPT instance access to a full cloud environment that's sandboxed. That means:
-- Access to Ubuntu OS
+- Access to Linux OS
 - Using filesystem (create, list, and delete files and dirs)
 - Run processes
 - Sandboxed - you can run any code
