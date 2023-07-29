@@ -5,7 +5,7 @@ components:
     requestBodies: {}
     responses: {}
     schemas:
-        CommandResponse:
+        ExecuteCommandResponse:
             properties:
                 stderr:
                     type: string
@@ -14,16 +14,6 @@ components:
             required:
                 - stderr
                 - stdout
-            type: object
-            additionalProperties: false
-        ExecuteCommandRequest:
-            properties:
-                cmd:
-                    type: string
-                rootdir:
-                    type: string
-            required:
-                - cmd
             type: object
             additionalProperties: false
         Template:
@@ -38,22 +28,6 @@ components:
                 - Java
                 - Perl
                 - DotNET
-        URLResponse:
-            properties:
-                url:
-                    type: string
-            required:
-                - url
-            type: object
-            additionalProperties: false
-        ReadFileResponse:
-            properties:
-                content:
-                    type: string
-            required:
-                - content
-            type: object
-            additionalProperties: false
     securitySchemes: {}
 info:
     title: '@e2b/chatgpt-plugin'
@@ -76,9 +50,15 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/CommandResponse'
+                                $ref: '#/components/schemas/ExecuteCommandResponse'
             security: []
             parameters:
+                -
+                    in: query
+                    name: workDir
+                    required: true
+                    schema:
+                        type: string
                 -
                     in: header
                     name: template
@@ -94,9 +74,9 @@ paths:
             requestBody:
                 required: true
                 content:
-                    application/json:
+                    'text/plain; charset=UTF-8':
                         schema:
-                            $ref: '#/components/schemas/ExecuteCommandRequest'
+                            type: string
     /files:
         get:
             operationId: ReadFile
@@ -104,9 +84,9 @@ paths:
                 '200':
                     description: Ok
                     content:
-                        application/json:
+                        'text/plain; charset=UTF-8':
                             schema:
-                                $ref: '#/components/schemas/ReadFileResponse'
+                                type: string
             security: []
             parameters:
                 -
@@ -155,14 +135,13 @@ paths:
             requestBody:
                 required: true
                 content:
-                    application/json:
+                    'text/plain; charset=UTF-8':
                         schema:
-                            properties:
-                                content:
-                                    type: string
-                            required:
-                                - content
-                            type: object
+                            type: string
 servers:
     -
-        url: 'https://localhost:3000/'
+        url: 'http://localhost:3000/'
+        description: 'Local development'
+    -
+        url: 'https://api.chatgpt.e2b.dev/'
+        description: 'Prod development'

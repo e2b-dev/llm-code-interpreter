@@ -10,7 +10,18 @@
   "spec": {
     "outputDirectory": "./",
     "specVersion": 3,
-    "host": "localhost:3000",
+    "spec": {
+    "servers": [
+        {
+          "url": "http://localhost:3000/",
+          "description": "Local development"
+        },
+        {
+          "url": "https://api.chatgpt.e2b.dev/",
+          "description": "Prod development"
+        }
+      ]
+    },
     "yaml": true,
     "specFileBaseName": "openapi"
   },

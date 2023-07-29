@@ -5,18 +5,15 @@ import {
   Header,
   Route,
   Hidden,
+  Consumes,
+  Query,
 } from 'tsoa'
-import {
-  ProcessManager,
-} from '@devbookhq/sdk'
 
 import { CachedSession } from '../sessions/session'
-import { openAIConversationIDHeader } from '../constants'
-import { Template } from './template'
+import { openAIConversationIDHeader, textPlainMIME } from '../constants'
+import { Template, defaultTemplate, getUserSessionID } from './template'
 
-interface ExecuteCommandRequest extends Pick<Parameters<ProcessManager['start']>[0], 'cmd' | 'rootdir'> { }
-
-interface CommandResponse {
+interface ExecuteCommandResponse {
   stderr: string
   stdout: string
 }
@@ -24,15 +21,20 @@ interface CommandResponse {
 @Route('commands')
 export class commandController extends Controller {
   @Post()
+  @Consumes(textPlainMIME)
   public async executeCommand(
-    @Body() requestBody: ExecuteCommandRequest,
-    @Header('template') template: Template = 'Nodejs',
+    @Body() command: string,
+    @Query() workDir: string,
+    @Header() template: Template = defaultTemplate,
     @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
-  ): Promise<CommandResponse> {
-    const session = await CachedSession
-      .findOrStartSession({ sessionID: conversationID, envID: template })
+  ): Promise<ExecuteCommandResponse> {
+    const sessionID = getUserSessionID(conversationID, template)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID: template })
 
-    const cachedProcess = await session.startProcess(requestBody)
+    const cachedProcess = await session.startProcess({
+      cmd: command,
+      rootdir: workDir,
+    })
     await cachedProcess.process?.exited
 
     return {

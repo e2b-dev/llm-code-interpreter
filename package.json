@@ -37,7 +37,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "npm run check-types && npm run generate && ./scripts/build.js",
+    "build": "npm run generate && npm run check-types && ./scripts/build.js",
     "start": "node lib/index.js",
     "generate": "tsoa spec-and-routes",
     "check-types": "tsc --noEmit"

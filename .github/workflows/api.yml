@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
       - '.devcontainer/**'
+      - '.vscode/**'
       - 'README.md'
       - 'LICENSE'
       - 'nodemon.json'

@@ -6,46 +6,47 @@ import {
   Query,
   Route,
   Hidden,
-  BodyProp,
+  Consumes,
+  Body,
+  Produces,
 } from 'tsoa'
 import { dirname } from 'path'
 
 import { CachedSession } from '../sessions/session'
-import { openAIConversationIDHeader } from '../constants'
-import { Template } from './template'
+import { openAIConversationIDHeader, textPlainMIME } from '../constants'
+import { Template, defaultTemplate, getUserSessionID } from './template'
 
-interface ReadFileResponse {
-  content: string
-}
 
 @Route('files')
 export class FilesystemController extends Controller {
   @Get()
+  @Produces(textPlainMIME)
   public async readFile(
     @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
-    @Header('template') template: Template = 'Nodejs',
+    @Header() template: Template = defaultTemplate,
     @Query() path: string,
-  ): Promise<ReadFileResponse> {
-    const session = await CachedSession.findOrStartSession({ sessionID: conversationID, envID: template })
+  ): Promise<string> {
+    const sessionID = getUserSessionID(conversationID, template)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID: template })
 
-    const content = await session
+    this.setHeader('Content-Type', textPlainMIME)
+
+    return await session
       .session
       .filesystem!
       .read(path)
-
-    return {
-      content,
-    }
   }
 
   @Put()
+  @Consumes(textPlainMIME)
   public async writeFile(
     @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
-    @Header('template') template: Template = 'Nodejs',
+    @Header() template: Template = defaultTemplate,
     @Query() path: string,
-    @BodyProp() content: string,
+    @Body() content: string,
   ) {
-    const session = await CachedSession.findOrStartSession({ sessionID: conversationID, envID: template })
+    const sessionID = getUserSessionID(conversationID, template)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID: template })
 
     const dir = dirname(path)
     await session.session.filesystem!.makeDir(dir)
