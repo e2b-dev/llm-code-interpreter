@@ -30,7 +30,9 @@ Here is a few ideas:
 
 ## Usage examples
 > Install youtube-dl and use it to download this video https://www.youtube.com/watch?v=jNQXAC9IVRw
+
 > Start HTTP server on port 3000
+
 > Clone this repo "https://github.com/e2b-dev/chatgpt-plugin", fix any typos in readme push it
 
 ## What is e2b?
