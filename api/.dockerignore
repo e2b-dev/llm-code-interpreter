@@ -1,0 +1,7 @@
+Dockerfile
+README.md
+.gitignore
+.venv
+lib
+node_modules
+.git

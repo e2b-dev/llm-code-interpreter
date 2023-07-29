@@ -1,0 +1,10 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ignore": [
+    "src/generated/**/*"
+  ],
+  "ext": "ts",
+  "exec": "npx tsoa routes && npx tsx src/server.ts"
+}
