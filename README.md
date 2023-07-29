@@ -1,4 +1,4 @@
-# e2b ChatGPT Plugin
+# Code Interpreter on steroids for ChatGPT (by e2b)
 
 E2B plugin for ChatGPT is like **code interpreter on steroids**.
 
