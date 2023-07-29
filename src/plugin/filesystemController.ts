@@ -5,6 +5,7 @@ import {
   Header,
   Query,
   Route,
+  Hidden,
   BodyProp,
 } from 'tsoa'
 import { dirname } from 'path'
@@ -13,18 +14,18 @@ import { CachedSession } from '../sessions/session'
 import { openAIConversationIDHeader } from '../constants'
 import { Template } from './template'
 
-interface ReadFilesystemFileResponse {
+interface ReadFileResponse {
   content: string
 }
 
-@Route('filesystem')
+@Route('file')
 export class FilesystemController extends Controller {
-  @Get('file')
+  @Get()
   public async readFile(
-    @Header(openAIConversationIDHeader) conversationID: string,
-    @Header('template') template: Template,
+    @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
+    @Header('template') template: Template = 'Nodejs',
     @Query() path: string,
-  ): Promise<ReadFilesystemFileResponse> {
+  ): Promise<ReadFileResponse> {
     const session = await CachedSession.findOrStartSession({ sessionID: conversationID, envID: template })
 
     const content = await session
@@ -37,10 +38,10 @@ export class FilesystemController extends Controller {
     }
   }
 
-  @Put('file')
+  @Put()
   public async writeFile(
-    @Header(openAIConversationIDHeader) conversationID: string,
-    @Header('template') template: Template,
+    @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
+    @Header('template') template: Template = 'Nodejs',
     @Query() path: string,
     @BodyProp() content: string,
   ) {

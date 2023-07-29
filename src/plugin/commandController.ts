@@ -4,6 +4,7 @@ import {
   Post,
   Header,
   Route,
+  Hidden,
 } from 'tsoa'
 import {
   ProcessManager,
@@ -13,7 +14,7 @@ import { CachedSession } from '../sessions/session'
 import { openAIConversationIDHeader } from '../constants'
 import { Template } from './template'
 
-interface StartProcessParams extends Pick<Parameters<ProcessManager['start']>[0], 'cmd' | 'rootdir'> { }
+interface ExecuteCommandRequest extends Pick<Parameters<ProcessManager['start']>[0], 'cmd' | 'rootdir'> { }
 
 interface CommandResponse {
   stderr: string
@@ -24,9 +25,9 @@ interface CommandResponse {
 export class commandController extends Controller {
   @Post()
   public async executeCommand(
-    @Body() requestBody: StartProcessParams,
-    @Header('template') template: Template,
-    @Header(openAIConversationIDHeader) conversationID: string,
+    @Body() requestBody: ExecuteCommandRequest,
+    @Header('template') template: Template = 'Nodejs',
+    @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
   ): Promise<CommandResponse> {
     const session = await CachedSession
       .findOrStartSession({ sessionID: conversationID, envID: template })

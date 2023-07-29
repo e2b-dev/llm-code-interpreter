@@ -3,16 +3,30 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { commandController } from './../plugin/commandController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { connectionController } from './../plugin/connectionController';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { FilesystemController } from './../plugin/filesystemController';
 import type { RequestHandler, Router } from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "ReadFilesystemFileResponse": {
+    "CommandResponse": {
         "dataType": "refObject",
         "properties": {
-            "content": {"dataType":"string","required":true},
+            "stderr": {"dataType":"string","required":true},
+            "stdout": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ExecuteCommandRequest": {
+        "dataType": "refObject",
+        "properties": {
+            "cmd": {"dataType":"string","required":true},
+            "rootdir": {"dataType":"string"},
         },
         "additionalProperties": false,
     },
@@ -20,6 +34,22 @@ const models: TsoaRoute.Models = {
     "Template": {
         "dataType": "refAlias",
         "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Nodejs"]},{"dataType":"enum","enums":["Go"]},{"dataType":"enum","enums":["Bash"]},{"dataType":"enum","enums":["Rust"]},{"dataType":"enum","enums":["Python3"]},{"dataType":"enum","enums":["PHP"]},{"dataType":"enum","enums":["Java"]},{"dataType":"enum","enums":["Perl"]},{"dataType":"enum","enums":["DotNET"]}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "URLResponse": {
+        "dataType": "refObject",
+        "properties": {
+            "url": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ReadFileResponse": {
+        "dataType": "refObject",
+        "properties": {
+            "content": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
@@ -32,14 +62,68 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
-        app.get('/filesystem/file',
+        app.post('/commands',
+            ...(fetchMiddlewares<RequestHandler>(commandController)),
+            ...(fetchMiddlewares<RequestHandler>(commandController.prototype.executeCommand)),
+
+            function commandController_executeCommand(request: any, response: any, next: any) {
+            const args = {
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ExecuteCommandRequest"},
+                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
+                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new commandController();
+
+
+              const promise = controller.executeCommand.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/urls',
+            ...(fetchMiddlewares<RequestHandler>(connectionController)),
+            ...(fetchMiddlewares<RequestHandler>(connectionController.prototype.getURL)),
+
+            function connectionController_getURL(request: any, response: any, next: any) {
+            const args = {
+                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
+                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
+                    port: {"in":"query","name":"port","dataType":"double"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new connectionController();
+
+
+              const promise = controller.getURL.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/file',
             ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
             ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.readFile)),
 
             function FilesystemController_readFile(request: any, response: any, next: any) {
             const args = {
                     conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
-                    template: {"in":"header","name":"template","required":true,"ref":"Template"},
+                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
             };
 
@@ -59,14 +143,14 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.put('/filesystem/file',
+        app.put('/file',
             ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
             ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.writeFile)),
 
             function FilesystemController_writeFile(request: any, response: any, next: any) {
             const args = {
                     conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
-                    template: {"in":"header","name":"template","required":true,"ref":"Template"},
+                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
                     content: {"in":"body-prop","name":"content","required":true,"dataType":"string"},
             };

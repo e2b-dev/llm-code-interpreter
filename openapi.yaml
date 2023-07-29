@@ -5,12 +5,25 @@ components:
     requestBodies: {}
     responses: {}
     schemas:
-        ReadFilesystemFileResponse:
+        CommandResponse:
             properties:
-                content:
+                stderr:
+                    type: string
+                stdout:
                     type: string
             required:
-                - content
+                - stderr
+                - stdout
+            type: object
+            additionalProperties: false
+        ExecuteCommandRequest:
+            properties:
+                cmd:
+                    type: string
+                rootdir:
+                    type: string
+            required:
+                - cmd
             type: object
             additionalProperties: false
         Template:
@@ -25,6 +38,22 @@ components:
                 - Java
                 - Perl
                 - DotNET
+        URLResponse:
+            properties:
+                url:
+                    type: string
+            required:
+                - url
+            type: object
+            additionalProperties: false
+        ReadFileResponse:
+            properties:
+                content:
+                    type: string
+            required:
+                - content
+            type: object
+            additionalProperties: false
     securitySchemes: {}
 info:
     title: '@e2b/chatgpt-plugin'
@@ -38,7 +67,37 @@ info:
         url: 'https://e2b.dev'
 openapi: 3.0.0
 paths:
-    /filesystem/file:
+    /commands:
+        post:
+            operationId: ExecuteCommand
+            responses:
+                '200':
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CommandResponse'
+            security: []
+            parameters:
+                -
+                    in: header
+                    name: template
+                    required: false
+                    schema:
+                        $ref: '#/components/schemas/Template'
+                -
+                    in: header
+                    name: openai-conversation-id
+                    required: true
+                    schema:
+                        type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ExecuteCommandRequest'
+    /file:
         get:
             operationId: ReadFile
             responses:
@@ -47,7 +106,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/ReadFilesystemFileResponse'
+                                $ref: '#/components/schemas/ReadFileResponse'
             security: []
             parameters:
                 -
@@ -59,7 +118,7 @@ paths:
                 -
                     in: header
                     name: template
-                    required: true
+                    required: false
                     schema:
                         $ref: '#/components/schemas/Template'
                 -
@@ -84,7 +143,7 @@ paths:
                 -
                     in: header
                     name: template
-                    required: true
+                    required: false
                     schema:
                         $ref: '#/components/schemas/Template'
                 -
