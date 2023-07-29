@@ -26,6 +26,7 @@ Here is a few ideas:
 - Run terminal commands
 - Create long running processes
 - Deploy websites
+- Install programs via terminal
 
 ## Example prompts
 [TODO]
