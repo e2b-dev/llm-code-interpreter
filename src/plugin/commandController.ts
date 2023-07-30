@@ -4,16 +4,15 @@ import {
   Post,
   Header,
   Route,
-  Hidden,
   Consumes,
   Query,
 } from 'tsoa'
 
 import { CachedSession } from '../sessions/session'
 import { openAIConversationIDHeader, textPlainMIME } from '../constants'
-import { Template, defaultTemplate, getUserSessionID } from './template'
+import { Environment, defaultEnvironment, getUserSessionID } from './environment'
 
-interface ExecuteCommandResponse {
+interface CommandResponse {
   stderr: string
   stdout: string
 }
@@ -22,14 +21,14 @@ interface ExecuteCommandResponse {
 export class commandController extends Controller {
   @Post()
   @Consumes(textPlainMIME)
-  public async executeCommand(
+  public async runCommand(
     @Body() command: string,
     @Query() workDir: string,
-    @Header() template: Template = defaultTemplate,
-    @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
-  ): Promise<ExecuteCommandResponse> {
-    const sessionID = getUserSessionID(conversationID, template)
-    const session = await CachedSession.findOrStartSession({ sessionID, envID: template })
+    @Header('env') envID: Environment = defaultEnvironment,
+    @Header(openAIConversationIDHeader) conversationID?: string,
+  ): Promise<CommandResponse> {
+    const sessionID = getUserSessionID(conversationID, envID)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID })
 
     const cachedProcess = await session.startProcess({
       cmd: command,

@@ -23,6 +23,7 @@ esbuild
     tsconfig: 'tsconfig.json',
     platform: 'node',
     target: 'node18',
+    loader: { '.yaml': 'text', '.json': 'text' },
     sourcemap: 'both',
     plugins: [makeAllPackagesExternalPlugin],
     outdir: 'lib',

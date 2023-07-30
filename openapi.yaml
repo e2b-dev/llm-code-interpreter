@@ -1,147 +1,104 @@
 components:
-    examples: {}
-    headers: {}
-    parameters: {}
-    requestBodies: {}
-    responses: {}
-    schemas:
-        ExecuteCommandResponse:
-            properties:
-                stderr:
-                    type: string
-                stdout:
-                    type: string
-            required:
-                - stderr
-                - stdout
-            type: object
-            additionalProperties: false
-        Template:
-            type: string
-            enum:
-                - Nodejs
-                - Go
-                - Bash
-                - Rust
-                - Python3
-                - PHP
-                - Java
-                - Perl
-                - DotNET
-    securitySchemes: {}
+  schemas:
+    CommandResponse:
+      additionalProperties: false
+      properties:
+        stderr:
+          type: string
+        stdout:
+          type: string
+      required:
+      - stderr
+      - stdout
+      type: object
+    Environment:
+      enum:
+      - Nodejs
+      - Go
+      - Bash
+      - Rust
+      - Python3
+      - PHP
+      - Java
+      - Perl
+      - DotNET
+      type: string
 info:
-    title: '@e2b/chatgpt-plugin'
-    version: 0.1.0
-    description: 'e2b ChatGPT Plugin'
-    license:
-        name: 'SEE LICENSE IN LICENSE'
-    contact:
-        name: 'FoundryLabs, Inc.'
-        email: hello@e2b.dev
-        url: 'https://e2b.dev'
+  description: A plugin that allows the user to create and manage a TODO list using ChatGPT.
+  title: TODO Plugin
+  version: v1
 openapi: 3.0.0
 paths:
-    /commands:
-        post:
-            operationId: ExecuteCommand
-            responses:
-                '200':
-                    description: Ok
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/ExecuteCommandResponse'
-            security: []
-            parameters:
-                -
-                    in: query
-                    name: workDir
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: header
-                    name: template
-                    required: false
-                    schema:
-                        $ref: '#/components/schemas/Template'
-                -
-                    in: header
-                    name: openai-conversation-id
-                    required: true
-                    schema:
-                        type: string
-            requestBody:
-                required: true
-                content:
-                    'text/plain; charset=UTF-8':
-                        schema:
-                            type: string
-    /files:
-        get:
-            operationId: ReadFile
-            responses:
-                '200':
-                    description: Ok
-                    content:
-                        'text/plain; charset=UTF-8':
-                            schema:
-                                type: string
-            security: []
-            parameters:
-                -
-                    in: header
-                    name: openai-conversation-id
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: header
-                    name: template
-                    required: false
-                    schema:
-                        $ref: '#/components/schemas/Template'
-                -
-                    in: query
-                    name: path
-                    required: true
-                    schema:
-                        type: string
-        put:
-            operationId: WriteFile
-            responses:
-                '204':
-                    description: 'No content'
-            security: []
-            parameters:
-                -
-                    in: header
-                    name: openai-conversation-id
-                    required: true
-                    schema:
-                        type: string
-                -
-                    in: header
-                    name: template
-                    required: false
-                    schema:
-                        $ref: '#/components/schemas/Template'
-                -
-                    in: query
-                    name: path
-                    required: true
-                    schema:
-                        type: string
-            requestBody:
-                required: true
-                content:
-                    'text/plain; charset=UTF-8':
-                        schema:
-                            type: string
+  /commands:
+    post:
+      operationId: RunCommand
+      parameters:
+      - in: query
+        name: workDir
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: env
+        required: false
+        schema:
+          $ref: '#/components/schemas/Environment'
+      requestBody:
+        content:
+          text/plain; charset=UTF-8:
+            schema:
+              type: string
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+          description: Ok
+  /files:
+    get:
+      operationId: ReadFile
+      parameters:
+      - in: header
+        name: env
+        required: false
+        schema:
+          $ref: '#/components/schemas/Environment'
+      - in: query
+        name: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/plain; charset=UTF-8:
+              schema:
+                type: string
+          description: Ok
+    put:
+      operationId: WriteFile
+      parameters:
+      - in: header
+        name: env
+        required: false
+        schema:
+          $ref: '#/components/schemas/Environment'
+      - in: query
+        name: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          text/plain; charset=UTF-8:
+            schema:
+              type: string
+        required: true
+      responses:
+        '204':
+          description: No content
 servers:
-    -
-        url: 'http://localhost:3000/'
-        description: 'Local development'
-    -
-        url: 'https://api.chatgpt.e2b.dev/'
-        description: 'Prod development'
+- description: Local development
+  url: http://localhost:3000/

@@ -11,7 +11,7 @@ import type { RequestHandler, Router } from 'express';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "ExecuteCommandResponse": {
+    "CommandResponse": {
         "dataType": "refObject",
         "properties": {
             "stderr": {"dataType":"string","required":true},
@@ -20,7 +20,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Template": {
+    "Environment": {
         "dataType": "refAlias",
         "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["Nodejs"]},{"dataType":"enum","enums":["Go"]},{"dataType":"enum","enums":["Bash"]},{"dataType":"enum","enums":["Rust"]},{"dataType":"enum","enums":["Python3"]},{"dataType":"enum","enums":["PHP"]},{"dataType":"enum","enums":["Java"]},{"dataType":"enum","enums":["Perl"]},{"dataType":"enum","enums":["DotNET"]}],"validators":{}},
     },
@@ -37,14 +37,14 @@ export function RegisterRoutes(app: Router) {
     // ###########################################################################################################
         app.post('/commands',
             ...(fetchMiddlewares<RequestHandler>(commandController)),
-            ...(fetchMiddlewares<RequestHandler>(commandController.prototype.executeCommand)),
+            ...(fetchMiddlewares<RequestHandler>(commandController.prototype.runCommand)),
 
-            function commandController_executeCommand(request: any, response: any, next: any) {
+            function commandController_runCommand(request: any, response: any, next: any) {
             const args = {
                     command: {"in":"body","name":"command","required":true,"dataType":"string"},
                     workDir: {"in":"query","name":"workDir","required":true,"dataType":"string"},
-                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
-                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
+                    envID: {"default":"Nodejs","in":"header","name":"env","ref":"Environment"},
+                    conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -56,7 +56,7 @@ export function RegisterRoutes(app: Router) {
                 const controller = new commandController();
 
 
-              const promise = controller.executeCommand.apply(controller, validatedArgs as any);
+              const promise = controller.runCommand.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
@@ -69,9 +69,9 @@ export function RegisterRoutes(app: Router) {
 
             function FilesystemController_readFile(request: any, response: any, next: any) {
             const args = {
-                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
-                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
+                    envID: {"default":"Nodejs","in":"header","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
+                    conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -96,10 +96,10 @@ export function RegisterRoutes(app: Router) {
 
             function FilesystemController_writeFile(request: any, response: any, next: any) {
             const args = {
-                    conversationID: {"in":"header","name":"openai-conversation-id","required":true,"dataType":"string"},
-                    template: {"default":"Nodejs","in":"header","name":"template","ref":"Template"},
+                    envID: {"default":"Nodejs","in":"header","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
                     content: {"in":"body","name":"content","required":true,"dataType":"string"},
+                    conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -182,24 +182,24 @@ export function RegisterRoutes(app: Router) {
                 case 'request':
                     return request;
                 case 'query':
-                    return validationService.ValidateParam(args[key], request.query[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                    return validationService.ValidateParam(args[key], request.query[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                 case 'queries':
-                    return validationService.ValidateParam(args[key], request.query, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                    return validationService.ValidateParam(args[key], request.query, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                 case 'path':
-                    return validationService.ValidateParam(args[key], request.params[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                    return validationService.ValidateParam(args[key], request.params[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                 case 'header':
-                    return validationService.ValidateParam(args[key], request.header(name), name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                    return validationService.ValidateParam(args[key], request.header(name), name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                 case 'body':
-                    return validationService.ValidateParam(args[key], request.body, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                    return validationService.ValidateParam(args[key], request.body, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                 case 'body-prop':
-                    return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, 'body.', {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                    return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, 'body.', {"noImplicitAdditionalProperties":"throw-on-extras"});
                 case 'formData':
                     if (args[key].dataType === 'file') {
-                        return validationService.ValidateParam(args[key], request.file, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                        return validationService.ValidateParam(args[key], request.file, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                     } else if (args[key].dataType === 'array' && args[key].array.dataType === 'file') {
-                        return validationService.ValidateParam(args[key], request.files, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                        return validationService.ValidateParam(args[key], request.files, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                     } else {
-                        return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"silently-remove-extras"});
+                        return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"throw-on-extras"});
                     }
                 case 'res':
                     return responder(response);

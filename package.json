@@ -30,6 +30,7 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.4.2",
     "esbuild": "^0.18.15",
+    "js-yaml": "^4.1.0",
     "nodemon": "^3.0.1",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6"
@@ -39,7 +40,8 @@
     "dev": "nodemon",
     "build": "npm run generate && npm run check-types && ./scripts/build.js",
     "start": "node lib/index.js",
-    "generate": "tsoa spec-and-routes",
+    "generate": "tsoa spec-and-routes && npm run spec:format",
+    "spec:format": "./scripts/formatSpec.js",
     "check-types": "tsc --noEmit"
   }
 }

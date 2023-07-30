@@ -9,6 +9,7 @@ on:
       - 'LICENSE'
       - 'nodemon.json'
       - 'tsoa.json'
+      - 'openapi.json'
       - 'DEV.md'
     branches:
       - main

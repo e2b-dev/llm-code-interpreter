@@ -5,7 +5,6 @@ import {
   Header,
   Query,
   Route,
-  Hidden,
   Consumes,
   Body,
   Produces,
@@ -14,7 +13,7 @@ import { dirname } from 'path'
 
 import { CachedSession } from '../sessions/session'
 import { openAIConversationIDHeader, textPlainMIME } from '../constants'
-import { Template, defaultTemplate, getUserSessionID } from './template'
+import { Environment, defaultEnvironment, getUserSessionID } from './environment'
 
 
 @Route('files')
@@ -22,12 +21,12 @@ export class FilesystemController extends Controller {
   @Get()
   @Produces(textPlainMIME)
   public async readFile(
-    @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
-    @Header() template: Template = defaultTemplate,
+    @Header('env') envID: Environment = defaultEnvironment,
     @Query() path: string,
+    @Header(openAIConversationIDHeader) conversationID?: string,
   ): Promise<string> {
-    const sessionID = getUserSessionID(conversationID, template)
-    const session = await CachedSession.findOrStartSession({ sessionID, envID: template })
+    const sessionID = getUserSessionID(conversationID, envID)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID })
 
     this.setHeader('Content-Type', textPlainMIME)
 
@@ -40,14 +39,14 @@ export class FilesystemController extends Controller {
   @Put()
   @Consumes(textPlainMIME)
   public async writeFile(
-    @Header(openAIConversationIDHeader) @Hidden() conversationID: string,
-    @Header() template: Template = defaultTemplate,
+    @Header('env') envID: Environment = defaultEnvironment,
     @Query() path: string,
     @Body() content: string,
+    @Header(openAIConversationIDHeader) conversationID?: string,
   ) {
-    const sessionID = getUserSessionID(conversationID, template)
-    const session = await CachedSession.findOrStartSession({ sessionID, envID: template })
-
+    const sessionID = getUserSessionID(conversationID, envID)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID })
+    
     const dir = dirname(path)
     await session.session.filesystem!.makeDir(dir)
     await session.session.filesystem!.write(path, content)

@@ -12,3 +12,4 @@ README.md
 lib
 node_modules
 .git
+npm-debug.log

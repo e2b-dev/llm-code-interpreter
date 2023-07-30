@@ -4,7 +4,7 @@ FROM node:lts-slim as modules
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci --production
+RUN npm ci --omit=dev
 
 # Transpile Typescript
 FROM node:lts-slim as build
@@ -16,7 +16,8 @@ RUN npm ci
 
 COPY tsconfig.json ./
 COPY tsoa.json ./
-COPY scripts/build.js ./scripts/build.js
+COPY ai-plugin.json ./
+COPY scripts/ ./scripts/
 COPY src ./src
 RUN npm run build
 
@@ -24,6 +25,10 @@ RUN npm run build
 FROM node:lts-slim
 COPY --from=modules ./app ./app
 COPY --from=build ./app/lib ./app/lib
+COPY --from=build ./app/openapi.yaml ./app/ai-plugin.json ./app/
 
 WORKDIR /app
-ENTRYPOINT ["sh", "-c", "node", "lib/index.js"]
+
+EXPOSE 3000
+
+ENTRYPOINT ["node", "lib/index.js"]

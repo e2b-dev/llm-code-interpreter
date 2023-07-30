@@ -8,12 +8,11 @@ import express, {
 import { ValidateError } from 'tsoa'
 import morgan from 'morgan'
 import cors from 'cors'
-
-import pluginManifest from '!!raw-loader!../../.well-known/ai-plugin.json'
-import pluginAPISpec from '!!raw-loader!../pluginapi.yaml'
+import path from 'path'
 
 import { RegisterRoutes } from './generated/routes'
 import { defaultPort } from './constants'
+import { readFileSync } from 'fs'
 
 export const app = express()
 
@@ -24,6 +23,33 @@ app.use(
   }),
   morgan('tiny'),
   json(),
+)
+
+function loadStaticFile(relativePath: string) {
+  return readFileSync(path.join(__dirname, relativePath), 'utf-8')
+}
+
+const pluginManifest = loadStaticFile('../ai-plugin.json')
+const pluginAPISpec = loadStaticFile('../openapi.yaml')
+
+app.get(
+  '/.well-known/ai-plugin.json',
+  (_, res) => {
+    res
+      .setHeader('Content-Type', 'text/json')
+      .status(200)
+      .send(pluginManifest)
+  }
+)
+
+app.get(
+  '/openapi.yaml',
+  (_, res) => {
+    res
+      .setHeader('Content-Type', 'text/yaml')
+      .status(200)
+      .send(pluginAPISpec)
+  }
 )
 
 RegisterRoutes(app)
@@ -55,26 +81,6 @@ app.use(
     }
     next()
   },
-)
-
-app.use(
-  '.well-known/ai-plugin.json',
-  (_, res) => {
-    res
-      .setHeader('Content-Type', 'text/json')
-      .status(200)
-      .send(pluginManifest)
-  }
-)
-
-app.use(
-  'openapi.yaml',
-  (_, res) => {
-    res
-      .setHeader('Content-Type', 'text/yaml')
-      .status(200)
-      .send(pluginAPISpec)
-  }
 )
 
 const port = process.env.PORT || defaultPort
