@@ -1,10 +1,7 @@
 # Dev
-
-- Expose OpenAPI spec and plugin manifest through API
 - Work on plugin manifest and OpenAPI spec de
 - Deploy on normal url (GCP load balancer + cloudflare)
 - Add prettier
-- Finish readme - installation and usage info
 - Finish GCP deployment setup
 - Add vale
 - Review tsconfig
