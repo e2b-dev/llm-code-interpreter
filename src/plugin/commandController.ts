@@ -12,13 +12,31 @@ import { CachedSession } from '../sessions/session'
 import { openAIConversationIDHeader, textPlainMIME } from '../constants'
 import { Environment, defaultEnvironment, getUserSessionID } from './environment'
 
+/**
+ *
+ */
 interface CommandResponse {
+  /**
+   *
+   */
   stderr: string
+  /**
+   * 
+   */
   stdout: string
 }
 
 @Route('commands')
 export class commandController extends Controller {
+  /**
+   * @summary 
+   * 
+   * @param command
+   * @param workDir 
+   * @param envID 
+   * @param conversationID 
+   * @returns 
+   */
   @Post()
   @Consumes(textPlainMIME)
   public async runCommand(

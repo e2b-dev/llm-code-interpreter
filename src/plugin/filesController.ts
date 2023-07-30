@@ -15,9 +15,16 @@ import { CachedSession } from '../sessions/session'
 import { openAIConversationIDHeader, textPlainMIME } from '../constants'
 import { Environment, defaultEnvironment, getUserSessionID } from './environment'
 
-
 @Route('files')
 export class FilesystemController extends Controller {
+  /**
+   * @summary 
+   * 
+   * @param envID 
+   * @param path 
+   * @param conversationID 
+   * @returns 
+   */
   @Get()
   @Produces(textPlainMIME)
   public async readFile(
@@ -36,6 +43,15 @@ export class FilesystemController extends Controller {
       .read(path)
   }
 
+  /**
+   * 
+   * @summary
+   * 
+   * @param envID 
+   * @param path 
+   * @param content 
+   * @param conversationID 
+   */
   @Put()
   @Consumes(textPlainMIME)
   public async writeFile(
