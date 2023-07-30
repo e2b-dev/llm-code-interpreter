@@ -1,13 +1,15 @@
 # Code Interpreter on steroids for ChatGPT (by e2b)
 
-E2B plugin for ChatGPT is like **code interpreter on steroids**.
+[E2B](https://e2b.dev/) plugin for ChatGPT is like **code interpreter on steroids**.
 
-E2B gives your ChatGPT instance access to a full cloud environment that's sandboxed. That means:
+We gives your ChatGPT instance access to a full cloud environment that's sandboxed. That means:
 - Access to Linux OS
 - Using filesystem (create, list, and delete files and dirs)
 - Run processes
 - Sandboxed - you can run any code
 - Access to the internet
+
+These cloud instances are meant to be used for agents. Like a sandboxed playgrounds, where the agent can do whatever it wants.
 
 ## What can I do with all this power?
 Here is a few ideas:
@@ -21,6 +23,9 @@ Here is a few ideas:
   - Java
   - Perl
   - .NET
+
+  Please open an issue if you want us to support another language
+    
 - Run databases
 - Start servers
 - Run terminal commands
