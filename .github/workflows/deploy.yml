@@ -8,7 +8,6 @@ on:
       - 'README.md'
       - 'LICENSE'
       - 'nodemon.json'
-      - 'tsoa.json'
       - 'openapi.json'
       - 'DEV.md'
     branches:
