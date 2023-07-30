@@ -17,11 +17,11 @@ import { Environment, defaultEnvironment, getUserSessionID } from './environment
  */
 interface CommandResponse {
   /**
-   *
+   * Standard error output from the command
    */
   stderr: string
   /**
-   * 
+   * Standard output from the command
    */
   stdout: string
 }
@@ -29,13 +29,12 @@ interface CommandResponse {
 @Route('commands')
 export class commandController extends Controller {
   /**
-   * @summary 
+   * @summary Run a command in a shell
    * 
-   * @param command
-   * @param workDir 
-   * @param envID 
-   * @param conversationID 
-   * @returns 
+   * @param envID Environment to run the command in
+   * @param command Command to run
+   * @param workDir Working directory to run the command in
+   * @returns JSON containing the standard output and error output of the command
    */
   @Post()
   @Consumes(textPlainMIME)

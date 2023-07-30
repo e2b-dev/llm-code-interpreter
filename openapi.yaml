@@ -4,14 +4,19 @@ components:
       additionalProperties: false
       properties:
         stderr:
+          description: Standard error output from the command
           type: string
         stdout:
+          description: Standard output from the command
           type: string
       required:
       - stderr
       - stdout
       type: object
     Environment:
+      description: |-
+        Type of environment to use.
+        This is used to determine which languages are installed by default.
       enum:
       - Nodejs
       - Go
@@ -22,10 +27,11 @@ components:
       - Java
       - Perl
       - DotNET
+      format: env
       type: string
 info:
-  description: A plugin that allows the user to create and manage a TODO list using ChatGPT.
-  title: TODO Plugin
+  description: A plugin that allows writting and reading files and running processes in a cloud environment.
+  title: E2B Code Interpreter
   version: v1
 openapi: 3.0.0
 paths:
@@ -33,12 +39,14 @@ paths:
     post:
       operationId: RunCommand
       parameters:
-      - in: query
+      - description: Working directory to run the command in
+        in: query
         name: workDir
         required: true
         schema:
           type: string
-      - in: header
+      - description: Environment to run the command in
+        in: header
         name: env
         required: false
         schema:
@@ -47,7 +55,9 @@ paths:
         content:
           text/plain; charset=UTF-8:
             schema:
+              description: Command to run
               type: string
+        description: Command to run
         required: true
       responses:
         '200':
@@ -55,17 +65,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
-          description: Ok
+          description: JSON containing the standard output and error output of the command
+      summary: Run a command in a shell
   /files:
     get:
       operationId: ReadFile
       parameters:
-      - in: header
+      - description: Environment where to read the file from
+        in: header
         name: env
         required: false
         schema:
           $ref: '#/components/schemas/Environment'
-      - in: query
+      - description: Path to the file to read
+        in: query
         name: path
         required: true
         schema:
@@ -76,16 +89,19 @@ paths:
             text/plain; charset=UTF-8:
               schema:
                 type: string
-          description: Ok
+          description: Contents of the file as a string
+      summary: Read the contents of a file at the given path
     put:
       operationId: WriteFile
       parameters:
-      - in: header
+      - description: Environment where to write the file
+        in: header
         name: env
         required: false
         schema:
           $ref: '#/components/schemas/Environment'
-      - in: query
+      - description: Path to the file to write
+        in: query
         name: path
         required: true
         schema:
@@ -94,11 +110,14 @@ paths:
         content:
           text/plain; charset=UTF-8:
             schema:
+              description: Content to write to the file
               type: string
+        description: Content to write to the file
         required: true
       responses:
         '204':
           description: No content
+      summary: Write content to a file at the given path
 servers:
 - description: Local development
   url: http://localhost:3000/

@@ -74,8 +74,8 @@ if (info) {
 
 // Add new info
 spec['info'] = {
-  title: 'TODO Plugin',
-  description: 'A plugin that allows the user to create and manage a TODO list using ChatGPT.',
+  title: 'E2B Code Interpreter',
+  description: 'A plugin that allows writting and reading files and running processes in a cloud environment.',
   version: 'v1',
 }
 

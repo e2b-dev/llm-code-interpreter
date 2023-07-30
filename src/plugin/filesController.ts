@@ -18,12 +18,11 @@ import { Environment, defaultEnvironment, getUserSessionID } from './environment
 @Route('files')
 export class FilesystemController extends Controller {
   /**
-   * @summary 
+   * @summary Read the contents of a file at the given path
    * 
-   * @param envID 
-   * @param path 
-   * @param conversationID 
-   * @returns 
+   * @param envID Environment where to read the file from
+   * @param path Path to the file to read
+   * @returns Contents of the file as a string
    */
   @Get()
   @Produces(textPlainMIME)
@@ -44,13 +43,11 @@ export class FilesystemController extends Controller {
   }
 
   /**
+   * @summary Write content to a file at the given path
    * 
-   * @summary
-   * 
-   * @param envID 
-   * @param path 
-   * @param content 
-   * @param conversationID 
+   * @param envID Environment where to write the file
+   * @param path Path to the file to write
+   * @param content Content to write to the file
    */
   @Put()
   @Consumes(textPlainMIME)
