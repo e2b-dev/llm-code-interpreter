@@ -82,12 +82,12 @@ export class CachedSession {
   }
 
   async delete() {
-    if (!this.id) return
+    if (!this.cacheID) return
     if (this.closed) return
     this.closed = true
 
     await this.session.close()
-    sessionCache.del(this.id)
+    sessionCache.del(this.cacheID)
   }
 
   async stopProcess(processID: string) {
