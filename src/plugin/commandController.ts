@@ -1,15 +1,14 @@
 import {
-  Body,
   Controller,
   Post,
   Header,
+  BodyProp,
   Route,
-  Consumes,
   Query,
 } from 'tsoa'
 
 import { CachedSession } from '../sessions/session'
-import { openAIConversationIDHeader, textPlainMIME } from '../constants'
+import { openAIConversationIDHeader } from '../constants'
 import { Environment, defaultEnvironment, getUserSessionID } from './environment'
 
 /**
@@ -37,10 +36,9 @@ export class commandController extends Controller {
    * @returns JSON containing the standard output and error output of the command
    */
   @Post()
-  @Consumes(textPlainMIME)
   public async runCommand(
-    @Body() command: string,
-    @Query() workDir: string,
+    @BodyProp() command: string,
+    @BodyProp() workDir: string,
     @Query() env: Environment = defaultEnvironment,
     @Header(openAIConversationIDHeader) conversationID?: string,
   ): Promise<CommandResponse> {

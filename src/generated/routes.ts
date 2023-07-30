@@ -41,8 +41,8 @@ export function RegisterRoutes(app: Router) {
 
             function commandController_runCommand(request: any, response: any, next: any) {
             const args = {
-                    command: {"in":"body","name":"command","required":true,"dataType":"string"},
-                    workDir: {"in":"query","name":"workDir","required":true,"dataType":"string"},
+                    command: {"in":"body-prop","name":"command","required":true,"dataType":"string"},
+                    workDir: {"in":"body-prop","name":"workDir","required":true,"dataType":"string"},
                     env: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };

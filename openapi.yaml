@@ -39,12 +39,6 @@ paths:
     post:
       operationId: RunCommand
       parameters:
-      - description: Working directory to run the command in
-        in: query
-        name: workDir
-        required: true
-        schema:
-          type: string
       - description: Environment to run the command in
         in: query
         name: env
@@ -53,11 +47,19 @@ paths:
           $ref: '#/components/schemas/Environment'
       requestBody:
         content:
-          text/plain; charset=UTF-8:
+          application/json:
             schema:
-              description: Command to run
-              type: string
-        description: Command to run
+              properties:
+                command:
+                  description: Command to run
+                  type: string
+                workDir:
+                  description: Working directory to run the command in
+                  type: string
+              required:
+              - command
+              - workDir
+              type: object
         required: true
       responses:
         '200':
