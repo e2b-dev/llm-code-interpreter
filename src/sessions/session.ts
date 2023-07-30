@@ -27,6 +27,7 @@ export class CachedSession {
   ports: OpenPort[] = []
 
   id?: string
+  cacheID?: string
   session: Session
 
   /**
@@ -54,15 +55,20 @@ export class CachedSession {
     })
   }
 
-  async init() {
+  /**
+   * @param customCacheID If you want to use a custom cache ID instead of the default one
+   */
+  async init(customCacheID?: string) {
     await this.session.open()
-
+    
     const url = this.session.getHostname()
     if (!url) throw new Error('Cannot start session')
+    console.log('Opened session',  url)
 
     const [id] = url.split('.')
     this.id = id
-    sessionCache.set(id, this)
+    this.cacheID = customCacheID || id
+    sessionCache.set(this.cacheID, this)
 
     return this
   }
@@ -108,7 +114,7 @@ export class CachedSession {
       return CachedSession.findSession(sessionID)
     } catch {
       const cachedSession = new CachedSession(envID)
-      await cachedSession.init()
+      await cachedSession.init(sessionID)
       return cachedSession
     }
   }
