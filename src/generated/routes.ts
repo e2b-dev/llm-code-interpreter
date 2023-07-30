@@ -99,7 +99,7 @@ export function RegisterRoutes(app: Router) {
             const args = {
                     env: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
-                    content: {"in":"body","name":"content","required":true,"dataType":"string"},
+                    content: {"in":"body-prop","name":"content","required":true,"dataType":"string"},
                     conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
 

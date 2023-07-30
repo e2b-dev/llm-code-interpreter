@@ -5,10 +5,9 @@ import {
   Header,
   Query,
   Route,
-  Consumes,
+  BodyProp,
   TsoaResponse,
   Res,
-  Body,
   Produces,
 } from 'tsoa'
 import { dirname } from 'path'
@@ -62,11 +61,10 @@ export class FilesystemController extends Controller {
    * @param content Content to write to the file
    */
   @Put()
-  @Consumes(textPlainMIME)
   public async writeFile(
     @Query() env: Environment = defaultEnvironment,
     @Query() path: string,
-    @Body() content: string,
+    @BodyProp() content: string,
     @Header(openAIConversationIDHeader) conversationID?: string,
   ) {
     const sessionID = getUserSessionID(conversationID, env)

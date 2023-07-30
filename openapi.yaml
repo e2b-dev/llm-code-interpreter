@@ -121,11 +121,15 @@ paths:
           type: string
       requestBody:
         content:
-          text/plain; charset=UTF-8:
+          application/json:
             schema:
-              description: Content to write to the file
-              type: string
-        description: Content to write to the file
+              properties:
+                content:
+                  description: Content to write to the file
+                  type: string
+              required:
+              - content
+              type: object
         required: true
       responses:
         '204':
