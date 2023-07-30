@@ -1,6 +1,7 @@
 import express, {
-  json,
   urlencoded,
+  text,
+  json,
   Response as ExResponse,
   Request as ExRequest,
   NextFunction,
@@ -22,6 +23,7 @@ app.use(
     extended: true,
   }),
   morgan('tiny'),
+  text(),
   json(),
 )
 
@@ -67,7 +69,7 @@ app.use(
     next: NextFunction
   ): ExResponse | void {
     if (err instanceof ValidateError) {
-      console.warn(`Caught Validation Error for ${req.path}:`, err.fields)
+      console.warn(`Caught Validation Error for ${req.path}:`, err.fields, err)
       return res.status(422).json({
         message: 'Validation Failed',
         details: err?.fields,
