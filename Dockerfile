@@ -14,21 +14,24 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY tsconfig.json ./
-COPY tsoa.json ./
-COPY ai-plugin.json ./
+COPY tsconfig.json .
+COPY tsoa.json .
 COPY scripts/ ./scripts/
 COPY src ./src
 RUN npm run build
 
 # Export image
 FROM node:lts-slim
-COPY --from=modules ./app ./app
-COPY --from=build ./app/lib ./app/lib
-COPY --from=build ./app/openapi.yaml ./app/ai-plugin.json ./app/
 
 WORKDIR /app
 
+RUN mkdir -p .well-known
+COPY .well-known/ai-plugin.json ./.well-known/ai-plugin.json
+
+COPY --from=modules ./app .
+COPY --from=build ./app/lib ./lib
+COPY --from=build ./app/openapi.yaml .
+
 EXPOSE 3000
 
-ENTRYPOINT ["node", "lib/index.js"]
+CMD ["node", "lib/index.js"]

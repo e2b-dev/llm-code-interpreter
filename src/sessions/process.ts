@@ -33,8 +33,8 @@ export class CachedProcess {
 
     const process = await createSessionProcess({
       manager: this.manager,
-      onStderr: (o) => this.stderr.push(o),
-      onStdout: (o) => this.stdout.push(o),
+      onStderr: o => this.stderr.push(o),
+      onStdout: o => this.stdout.push(o),
       ...params,
     })
 

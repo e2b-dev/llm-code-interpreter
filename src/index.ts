@@ -9,10 +9,10 @@ import { ValidateError } from 'tsoa'
 import morgan from 'morgan'
 import cors from 'cors'
 import path from 'path'
+import { readFileSync } from 'fs'
 
 import { RegisterRoutes } from './generated/routes'
 import { defaultPort } from './constants'
-import { readFileSync } from 'fs'
 
 export const app = express()
 
@@ -29,7 +29,7 @@ function loadStaticFile(relativePath: string) {
   return readFileSync(path.join(__dirname, relativePath), 'utf-8')
 }
 
-const pluginManifest = loadStaticFile('../ai-plugin.json')
+const pluginManifest = loadStaticFile('../.well-known/ai-plugin.json')
 const pluginAPISpec = loadStaticFile('../openapi.yaml')
 
 app.get(

@@ -34,6 +34,7 @@ export class commandController extends Controller {
       cmd: command,
       rootdir: workDir,
     })
+
     await cachedProcess.process?.exited
 
     return {
