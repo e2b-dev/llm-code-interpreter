@@ -11,7 +11,7 @@ We gives your ChatGPT instance access to a full cloud environment that's sandbox
 
 These cloud instances are meant to be used for agents. Like a sandboxed playgrounds, where the agent can do whatever it wants.
 
-## What can I do with all this power?
+## What can I do with this plugin?
 This plugin exposes 3 simple commands (see the [OpenAPI file](https://github.com/e2b-dev/chatgpt-plugin/blob/main/openapi.yaml)):
 - `RunCommand`
   - Runs any shell command
@@ -21,7 +21,7 @@ This plugin exposes 3 simple commands (see the [OpenAPI file](https://github.com
   - Writes content to a file on a path
 
 
-Here is a few ideas what you can do with these commands
+Here is a few ideas what you can do with these commands:
 - Run **any** language, not just Python. Currently supported out of the box:
   - Nodejs
   - Go
