@@ -13,6 +13,7 @@
 - Add examples to API doc
 - Add lint action
 - Enable GH analysis
+- Add vale
 - Add issue/PR templates
 - Improve README.md
 - Add support for function calling OpenAI API
