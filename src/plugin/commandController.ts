@@ -31,7 +31,7 @@ export class commandController extends Controller {
   /**
    * @summary Run a command in a shell
    * 
-   * @param envID Environment to run the command in
+   * @param env Environment to run the command in
    * @param command Command to run
    * @param workDir Working directory to run the command in
    * @returns JSON containing the standard output and error output of the command
@@ -41,11 +41,11 @@ export class commandController extends Controller {
   public async runCommand(
     @Body() command: string,
     @Query() workDir: string,
-    @Query('env') envID: Environment = defaultEnvironment,
+    @Query() env: Environment = defaultEnvironment,
     @Header(openAIConversationIDHeader) conversationID?: string,
   ): Promise<CommandResponse> {
-    const sessionID = getUserSessionID(conversationID, envID)
-    const session = await CachedSession.findOrStartSession({ sessionID, envID })
+    const sessionID = getUserSessionID(conversationID, env)
+    const session = await CachedSession.findOrStartSession({ sessionID, envID: env })
 
     const cachedProcess = await session.startProcess({
       cmd: command,
