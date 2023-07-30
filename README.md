@@ -89,4 +89,4 @@ The official ChatGPT Code Interpreter supports uploading and downloading files. 
 1. Tell ChaGPT to upload its files to S3 bucket using curl
 
 ## What is e2b?
-E2B is the company behind this plugin. We're building an operating system for AI agents. A set of low-level APIs for building agents (debugging, auth, deploy, monitor, and more) and cloud environments for deploying the agents.
+E2B is the company behind this plugin. We're building an operating system for AI agents. A set of low-level APIs for building agents (debugging, auth, monitor, and more) and sandboxed cloud environments for the agents where the agents can roam freely without barriers 🐎.
