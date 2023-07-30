@@ -38,6 +38,7 @@ export class FilesystemController extends Controller {
     const sessionID = getUserSessionID(conversationID, env)
     const session = await CachedSession.findOrStartSession({ sessionID, envID: env })
 
+    // Even though we're returning a string and using @Produces, we need to set the content type manually.
     this.setHeader('Content-Type', textPlainMIME)
 
     try {
