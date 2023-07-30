@@ -36,7 +36,30 @@ Here is a few ideas:
 ## Installation
 There are two ways:
 1. Wait for OpenAI to approve our plugin in their store
-2. Have developer access to ChatGPT plugins and install the plugin by following [this](https://github.com/openai/plugins-quickstart#setup-locally).
+2. Have developer access to ChatGPT plugins and install the plugin by following the instructions below for how to [run plugin locally](#how-to-run-plugin-locally)
+
+### How to run plugin locally
+To install the required packages for this plugin, run the following command:
+
+```bash
+npm install
+```
+
+To run the plugin, enter the following command:
+
+```bash
+npm run dev
+```
+
+Once the local server is running:
+
+1. Navigate to https://chat.openai.com.
+2. In the Model drop down, select "Plugins" (note, if you don't see it there, you don't have access yet).
+3. Select "Plugin store"
+4. Select "Develop your own plugin"
+5. Enter in localhost:3000 since this is the URL the server is running on locally, then select "Find manifest file".
+
+
 
 ## Usage examples
 > Install youtube-dl and use it to download this video https://www.youtube.com/watch?v=jNQXAC9IVRw
