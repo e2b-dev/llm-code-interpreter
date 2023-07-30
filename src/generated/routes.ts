@@ -71,6 +71,7 @@ export function RegisterRoutes(app: Router) {
             const args = {
                     env: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
+                    notFoundResponse: {"in":"res","name":"404","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"reason":{"dataType":"string","required":true}}},
                     conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
 

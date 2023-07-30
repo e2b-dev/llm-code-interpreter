@@ -6,6 +6,8 @@ import {
   Query,
   Route,
   Consumes,
+  TsoaResponse,
+  Res,
   Body,
   Produces,
 } from 'tsoa'
@@ -22,6 +24,7 @@ export class FilesystemController extends Controller {
    * 
    * @param env Environment where to read the file from
    * @param path Path to the file to read
+   * @param notFoundResponse Response to send if the file is not found
    * @returns Contents of the file as a string
    */
   @Get()
@@ -29,6 +32,7 @@ export class FilesystemController extends Controller {
   public async readFile(
     @Query() env: Environment = defaultEnvironment,
     @Query() path: string,
+    @Res() notFoundResponse: TsoaResponse<404, { reason: string }>,
     @Header(openAIConversationIDHeader) conversationID?: string,
   ): Promise<string> {
     const sessionID = getUserSessionID(conversationID, env)
@@ -36,10 +40,17 @@ export class FilesystemController extends Controller {
 
     this.setHeader('Content-Type', textPlainMIME)
 
-    return await session
-      .session
-      .filesystem!
-      .read(path)
+    try {
+      return await session
+        .session
+        .filesystem!
+        .read(path)
+    } catch (err) {
+      console.error(err)
+      return notFoundResponse(404, { 
+        reason: `File on path "${path}" not found`,
+      })
+    }
   }
 
   /**
