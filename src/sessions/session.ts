@@ -70,6 +70,14 @@ export class CachedSession {
     this.cacheID = customCacheID || id
     sessionCache.set(this.cacheID, this)
 
+    // Temporary hack to fix the clock drift issue for Alpine Linux
+    this.session.filesystem?.write('/etc/chrony/chrony.conf', `initstepslew 0.5 pool.ntp.org
+    makestep 0.5 -1`).then(() => {
+      this.startProcess({
+        cmd: `rc-service chronyd restart`,
+      })
+    })
+
     return this
   }
 
