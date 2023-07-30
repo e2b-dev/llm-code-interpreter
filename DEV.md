@@ -1,4 +1,6 @@
 # Dev
+
+## Issues
 - Work on plugin manifest and OpenAPI spec descriptions
 - Deploy on normal url (GCP load balancer + cloudflare)
 - Add prettier
@@ -18,5 +20,9 @@
 - Improve README.md
 - Add support for function calling OpenAI API
 - Explain how to contribute - what commands to call to generate and which docs/strings to modify to add to spec
+- Move to ubuntu
+- Fix clock drift
+- Fix devbookd freeze
+- Manually check all envs
 
 > we can change the API for the plugins whenever we want - we don't need to think about backward compatibility that much because the API is understood again everytime the plugin is used.
