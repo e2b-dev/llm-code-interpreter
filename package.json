@@ -9,10 +9,10 @@
     "email": "hello@e2b.dev",
     "url": "https://e2b.dev"
   },
-  "bugs": "https://github.com/e2b/chatgpt-plugin/issues",
+  "bugs": "https://github.com/e2b-dev/chatgpt-plugin/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/e2b/chatgpt-plugin/tree/main"
+    "url": "https://github.com/e2b-dev/chatgpt-plugin/tree/main"
   },
   "dependencies": {
     "@devbookhq/sdk": "^2.6.82",
