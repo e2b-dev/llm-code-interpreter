@@ -23,6 +23,9 @@ Here is a few ideas:
   - Java
   - Perl
   - .NET
+
+  Please open an issue if you want us to support another language
+    
 - Run databases
 - Start servers
 - Run terminal commands
