@@ -2,9 +2,10 @@ import { OpenedPort as OpenPort, Session } from '@devbookhq/sdk'
 import NodeCache from 'node-cache'
 
 import { CachedProcess, RunProcessParams } from './process'
+import { maxSessionLength } from '../constants'
 
 export const sessionCache = new NodeCache({
-  stdTTL: 600,
+  stdTTL: maxSessionLength,
   checkperiod: 10,
   useClones: false,
   deleteOnExpire: true,
