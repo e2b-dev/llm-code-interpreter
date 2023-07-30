@@ -4,13 +4,7 @@
 const yaml = require('js-yaml')
 const fs = require('fs');
 
-const isDev = process.env.NODE_ENV === 'development'
-
 const spec = yaml.load(fs.readFileSync('openapi.yaml', 'utf8'))
-
-// TODO: Delete empty components, securitySchema, secuirity, and openai hidden headers
-// TODO: Delete old and write correct info
-// TODO: Delete local dev server url for production
 
 function isObjEmpty (obj) {
   return Object.keys(obj).length === 0;
