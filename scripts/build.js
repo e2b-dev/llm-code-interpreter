@@ -3,8 +3,6 @@
 
 const esbuild = require('esbuild')
 
-const isDev = process.env.NODE_ENV === 'development'
-
 const makeAllPackagesExternalPlugin = {
   name: 'make-all-packages-external',
   setup(build) {
@@ -19,7 +17,7 @@ const makeAllPackagesExternalPlugin = {
 esbuild
   .build({
     bundle: true,
-    minify: !isDev,
+    minify: true,
     tsconfig: 'tsconfig.json',
     platform: 'node',
     target: 'node18',

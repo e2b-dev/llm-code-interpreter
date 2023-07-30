@@ -36,12 +36,10 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "npm run generate && npm run check-types && ./scripts/build.js",
+    "build": "npm run generate && tsc --noEmit && ./scripts/build.js",
     "start": "node lib/index.js",
-    "generate": "tsoa spec-and-routes && npm run spec:format",
-    "spec:format": "./scripts/formatSpec.js",
+    "generate": "tsoa spec-and-routes && ./scripts/formatSpec.js",
     "docker:build": "docker build -t e2b/chatgpt-plugin-api .",
-    "docker:run": "docker run --init -p 3000:3000 e2b/chatgpt-plugin-api",
-    "check-types": "tsc --noEmit"
+    "docker:start": "docker run --init -p 3000:3000 e2b/chatgpt-plugin-api"
   }
 }
