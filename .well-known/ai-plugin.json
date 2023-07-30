@@ -11,7 +11,7 @@
     "type": "openapi",
     "url": "http://localhost:3000/openapi.yaml"
   },
-  "logo_url": "https://raw.githubusercontent.com/e2b-dev/chatgpt-plugin/main/public/logo.png",
+  "logo_url": "https://raw.githubusercontent.com/e2b-dev/chatgpt-plugin/main/logo.png",
   "contact_email": "hello@e2b.dev",
   "legal_info_url": "http://example.com/legal"
 }
