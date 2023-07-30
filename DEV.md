@@ -11,5 +11,11 @@
 - Fix legal page url
 - Add spectral for linting tsoa generated docs (https://stoplight.io/p/docs/gh/stoplightio/spectral)
 - Add examples to API doc
+- Add lint action
+- Enable GH analysis
+- Add issue/PR templates
+- Improve README.md
+- Add support for function calling OpenAI API
+- Explain how to contribute - what commands to call to generate and which docs/strings to modify to add to spec
 
 > we can change the API for the plugins whenever we want - we don't need to think about backward compatibility that much because the API is understood again everytime the plugin is used.
