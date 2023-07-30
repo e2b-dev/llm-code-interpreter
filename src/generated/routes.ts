@@ -43,7 +43,7 @@ export function RegisterRoutes(app: Router) {
             const args = {
                     command: {"in":"body","name":"command","required":true,"dataType":"string"},
                     workDir: {"in":"query","name":"workDir","required":true,"dataType":"string"},
-                    envID: {"default":"Nodejs","in":"header","name":"env","ref":"Environment"},
+                    envID: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
 
@@ -69,7 +69,7 @@ export function RegisterRoutes(app: Router) {
 
             function FilesystemController_readFile(request: any, response: any, next: any) {
             const args = {
-                    envID: {"default":"Nodejs","in":"header","name":"env","ref":"Environment"},
+                    envID: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
                     conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},
             };
@@ -96,7 +96,7 @@ export function RegisterRoutes(app: Router) {
 
             function FilesystemController_writeFile(request: any, response: any, next: any) {
             const args = {
-                    envID: {"default":"Nodejs","in":"header","name":"env","ref":"Environment"},
+                    envID: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
                     content: {"in":"body","name":"content","required":true,"dataType":"string"},
                     conversationID: {"in":"header","name":"openai-conversation-id","dataType":"string"},

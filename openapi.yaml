@@ -46,7 +46,7 @@ paths:
         schema:
           type: string
       - description: Environment to run the command in
-        in: header
+        in: query
         name: env
         required: false
         schema:
@@ -72,7 +72,7 @@ paths:
       operationId: ReadFile
       parameters:
       - description: Environment where to read the file from
-        in: header
+        in: query
         name: env
         required: false
         schema:
@@ -95,7 +95,7 @@ paths:
       operationId: WriteFile
       parameters:
       - description: Environment where to write the file
-        in: header
+        in: query
         name: env
         required: false
         schema:

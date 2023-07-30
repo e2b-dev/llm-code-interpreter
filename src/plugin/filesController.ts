@@ -27,7 +27,7 @@ export class FilesystemController extends Controller {
   @Get()
   @Produces(textPlainMIME)
   public async readFile(
-    @Header('env') envID: Environment = defaultEnvironment,
+    @Query('env') envID: Environment = defaultEnvironment,
     @Query() path: string,
     @Header(openAIConversationIDHeader) conversationID?: string,
   ): Promise<string> {
@@ -52,7 +52,7 @@ export class FilesystemController extends Controller {
   @Put()
   @Consumes(textPlainMIME)
   public async writeFile(
-    @Header('env') envID: Environment = defaultEnvironment,
+    @Query('env') envID: Environment = defaultEnvironment,
     @Query() path: string,
     @Body() content: string,
     @Header(openAIConversationIDHeader) conversationID?: string,

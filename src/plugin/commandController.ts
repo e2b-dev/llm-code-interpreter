@@ -41,7 +41,7 @@ export class commandController extends Controller {
   public async runCommand(
     @Body() command: string,
     @Query() workDir: string,
-    @Header('env') envID: Environment = defaultEnvironment,
+    @Query('env') envID: Environment = defaultEnvironment,
     @Header(openAIConversationIDHeader) conversationID?: string,
   ): Promise<CommandResponse> {
     const sessionID = getUserSessionID(conversationID, envID)
