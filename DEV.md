@@ -25,5 +25,6 @@
 - Fix devbookd freeze
 - Manually check all envs
 - Add url of the localhost server to the spec only in dev env
+- Post request confirmation flow
 
 > we can change the API for the plugins whenever we want - we don't need to think about backward compatibility that much because the API is understood again everytime the plugin is used.
