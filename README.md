@@ -1,7 +1,7 @@
 # Code Interpreter on steroids for ChatGPT (by e2b)
 
 <p align="center">
-Click on the image to see the demo
+Click on the image to watch the demo
 </p>
 
 [![Video](./assets/thumbnail.png)](https://www.youtube.com/watch?v=kJuJnsatU2s)
