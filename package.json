@@ -36,7 +36,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "npm run generate && tsc --noEmit && ./scripts/build.js",
+    "build": "npm run generate && tsc --noEmit && node ./scripts/build.js",
     "start": "node lib/index.js",
     "generate": "tsoa spec-and-routes && node ./scripts/formatSpec.js", 
     "docker:build": "docker build -t e2b/chatgpt-plugin-api .",
