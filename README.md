@@ -1,4 +1,14 @@
-# Code Interpreter on steroids for ChatGPT (by e2b)
+
+  <h1 align="center">Code Interpreter on steroids for ChatGPT (by e2b)</h1>
+	<p align="center">
+		<a href="https://discord.gg/U7KEcGErtQ" target="_blank">
+			<img src="https://img.shields.io/static/v1?label=Join&message=%20discord!&color=mediumslateblue">
+		</a>
+		<a href="https://twitter.com/e2b_dev" target="_blank">
+			<img src="https://img.shields.io/twitter/follow/e2b.svg?logo=twitter">
+		</a>
+	</p>
+
 
 <p align="center">
 Click on the image to watch the demo
@@ -25,7 +35,7 @@ This plugin exposes 3 simple commands (see the [OpenAPI file](https://github.com
   - Reads file on path
 - `WriteFile`
   - Writes content to a file on a path
-
+These simple 3 primitives enable a whole set of possibilities. 
 
 Here is a few ideas what you can do with these commands:
 - Run **any** language, not just Python. Currently supported out of the box:
