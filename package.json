@@ -38,7 +38,7 @@
     "dev": "nodemon",
     "build": "npm run generate && tsc --noEmit && ./scripts/build.js",
     "start": "node lib/index.js",
-    "generate": "tsoa spec-and-routes && ./scripts/formatSpec.js",
+    "generate": "tsoa spec-and-routes && node ./scripts/formatSpec.js", 
     "docker:build": "docker build -t e2b/chatgpt-plugin-api .",
     "docker:start": "docker run --init -p 3000:3000 e2b/chatgpt-plugin-api"
   }
