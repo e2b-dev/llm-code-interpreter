@@ -1,8 +1,14 @@
 # Code Interpreter on steroids for ChatGPT (by e2b)
 
+<p align="center">
+Click on the image to watch the demo
+</p>
+
+[![Video](./assets/thumbnail.png)](https://www.youtube.com/watch?v=kJuJnsatU2s?utm_source=github)
+
 [E2B](https://e2b.dev/) plugin for ChatGPT is like **code interpreter on steroids**.
 
-We gives your ChatGPT instance access to a full cloud environment that's sandboxed. That means:
+We give your ChatGPT instance access to a full cloud environment that's sandboxed. That means:
 - Access to Linux OS
 - Using filesystem (create, list, and delete files and dirs)
 - Run processes
@@ -34,7 +40,7 @@ Here is a few ideas what you can do with these commands:
   - .NET
 
   Please open an issue if you want us to support another language
-    
+
 - Run databases
 - Start servers
 - Run terminal commands
