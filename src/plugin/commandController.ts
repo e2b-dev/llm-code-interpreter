@@ -26,7 +26,7 @@ interface CommandResponse {
 }
 
 @Route('commands')
-export class commandController extends Controller {
+export class CommandController extends Controller {
   /**
    * @summary Run a command in a shell
    * 

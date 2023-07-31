@@ -17,7 +17,7 @@ import { openAIConversationIDHeader, textPlainMIME } from '../constants'
 import { Environment, defaultEnvironment, getUserSessionID } from './environment'
 
 @Route('files')
-export class FilesystemController extends Controller {
+export class FileController extends Controller {
   /**
    * @summary Read the contents of a file at the given path
    * 

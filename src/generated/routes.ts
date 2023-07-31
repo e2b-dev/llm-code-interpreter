@@ -3,9 +3,9 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse, fetchMiddlewares } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { commandController } from './../plugin/commandController';
+import { CommandController } from './../plugin/commandController';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { FilesystemController } from './../plugin/filesController';
+import { FileController } from './../plugin/fileController';
 import type { RequestHandler, Router } from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -36,10 +36,10 @@ export function RegisterRoutes(app: Router) {
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
         app.post('/commands',
-            ...(fetchMiddlewares<RequestHandler>(commandController)),
-            ...(fetchMiddlewares<RequestHandler>(commandController.prototype.runCommand)),
+            ...(fetchMiddlewares<RequestHandler>(CommandController)),
+            ...(fetchMiddlewares<RequestHandler>(CommandController.prototype.runCommand)),
 
-            function commandController_runCommand(request: any, response: any, next: any) {
+            function CommandController_runCommand(request: any, response: any, next: any) {
             const args = {
                     command: {"in":"body-prop","name":"command","required":true,"dataType":"string"},
                     workDir: {"in":"body-prop","name":"workDir","required":true,"dataType":"string"},
@@ -53,7 +53,7 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new commandController();
+                const controller = new CommandController();
 
 
               const promise = controller.runCommand.apply(controller, validatedArgs as any);
@@ -64,10 +64,10 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/files',
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.readFile)),
+            ...(fetchMiddlewares<RequestHandler>(FileController)),
+            ...(fetchMiddlewares<RequestHandler>(FileController.prototype.readFile)),
 
-            function FilesystemController_readFile(request: any, response: any, next: any) {
+            function FileController_readFile(request: any, response: any, next: any) {
             const args = {
                     env: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
@@ -81,7 +81,7 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new FilesystemController();
+                const controller = new FileController();
 
 
               const promise = controller.readFile.apply(controller, validatedArgs as any);
@@ -92,10 +92,10 @@ export function RegisterRoutes(app: Router) {
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/files',
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController)),
-            ...(fetchMiddlewares<RequestHandler>(FilesystemController.prototype.writeFile)),
+            ...(fetchMiddlewares<RequestHandler>(FileController)),
+            ...(fetchMiddlewares<RequestHandler>(FileController.prototype.writeFile)),
 
-            function FilesystemController_writeFile(request: any, response: any, next: any) {
+            function FileController_writeFile(request: any, response: any, next: any) {
             const args = {
                     env: {"default":"Nodejs","in":"query","name":"env","ref":"Environment"},
                     path: {"in":"query","name":"path","required":true,"dataType":"string"},
@@ -109,7 +109,7 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new FilesystemController();
+                const controller = new FileController();
 
 
               const promise = controller.writeFile.apply(controller, validatedArgs as any);
