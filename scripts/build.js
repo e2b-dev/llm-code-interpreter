@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /* eslint-disable import/no-extraneous-dependencies */
 
 const esbuild = require('esbuild')
