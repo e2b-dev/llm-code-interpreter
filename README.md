@@ -4,7 +4,7 @@
 Click on the image to watch the demo
 </p>
 
-[![Video](./assets/thumbnail.png)](https://www.youtube.com/watch?v=kJuJnsatU2s)
+[![Video](./assets/thumbnail.png)](https://www.youtube.com/watch?v=kJuJnsatU2s?utm_source=github)
 
 [E2B](https://e2b.dev/) plugin for ChatGPT is like **code interpreter on steroids**.
 
