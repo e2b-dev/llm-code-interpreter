@@ -1,4 +1,15 @@
-# Code Interpreter on steroids for ChatGPT (by e2b)
+<h1 align="center">
+  Code Interpreter on steroids for ChatGPT (by e2b)
+	<p align="center">
+		<a href="https://discord.gg/U7KEcGErtQ" target="_blank">
+			<img src="https://img.shields.io/static/v1?label=Join&message=%20discord!&color=mediumslateblue">
+		</a>
+		<a href="https://twitter.com/e2b_dev" target="_blank">
+			<img src="https://img.shields.io/twitter/follow/e2b.svg?logo=twitter">
+		</a>
+	</p>
+</h1>
+
 
 <p align="center">
 Click on the image to watch the demo
