@@ -35,7 +35,7 @@ This plugin exposes 3 simple commands (see the [OpenAPI file](https://github.com
   - Reads file on path
 - `WriteFile`
   - Writes content to a file on a path
-
+These simple 3 primitives enable a whole set of possibilities. 
 
 Here is a few ideas what you can do with these commands:
 - Run **any** language, not just Python. Currently supported out of the box:
