@@ -98,3 +98,28 @@ The official ChatGPT Code Interpreter supports uploading and downloading files. 
 
 ## What is e2b?
 [E2B](https://www.e2b.dev/) is the company behind this plugin. We're building an operating system for AI agents. A set of low-level APIs for building agents (debugging, auth, monitor, and more) together with sandboxed cloud environments for the agents where the agents can roam freely without barriers 🐎.
+
+
+## Development
+Install dependencies:
+```bash
+npm install
+```
+
+Then start reloading server by running:
+```bash
+npm run dev
+```
+
+### API routes
+We are using [tsoa](https://github.com/lukeautry/tsoa) to generate [OpenAPI spec](./openapi.yaml) and to generate server route boilerplate. It uses TypeScript decorators to describe the API.
+
+Edit the Controllers in [`src/plugin`](./src/plugin/) to modify the API exposed to the plugin.
+
+### Documentation
+The documentation of API in the OpenAPI spec is generated from the JSDoc comments in the Controllers. See [tsoa docs](https://tsoa-community.github.io/docs/descriptions.html) for more info.
+
+The info section inside of OpenAPI spec is injected in the [script that reformats the generated spec](./scripts/formatSpec.js) so if you want to change it, you need to change it there not by changing the `openapi.yaml` file directly.
+
+### Manifest
+You may also want to modify the [ChatGPT plugin manifest](./.well-known/ai-plugin.json) to change metadata about the plugin.
