@@ -1,6 +1,7 @@
 name: Build and Deploy ChatGPT Plugin API to Google Compute Engine
 
 on:
+  workflow_dispatch:
   push:
     paths-ignore:
       - '.devcontainer/**'
