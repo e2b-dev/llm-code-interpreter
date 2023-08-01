@@ -27,6 +27,10 @@ app.use(
   json(),
 )
 
+app.get('/health', (_, res) => {
+  res.status(200).send('OK')
+})
+
 function loadStaticFile(relativePath: string) {
   return readFileSync(path.join(__dirname, relativePath), 'utf-8')
 }
