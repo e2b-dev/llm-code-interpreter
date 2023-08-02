@@ -29,8 +29,9 @@
 - Make issues from user issues
 - Can we document the response without creating return types?
 - ChatGPT tries to use read file even for listing directory content
-- Handle in which env are the operations executed because sometimes ChatGPT will switch to another env between operations
+- Handle in which env are the operations executed because sometimes ChatGPT will switch to another env between operations - maybe create a single env that has all the dependencies?
 - Enable diff edits to save context
 - ChatGPT sometimes insists that it doesn't have capacity for editing files (on GitHub) - maybe we should rename "code interpreter" to something less obvious that it can edit downloaded repo
+- ChatGPT seems to think that when using Python env it can run python with the RunCommand operation directly (is is not using `python print(...)` but `print(...)`). It may think it is in the Python REPL.
 
 > we can change the API for the plugins whenever we want - we don't need to think about backward compatibility that much because the API is understood again everytime the plugin is used.
