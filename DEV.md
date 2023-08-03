@@ -1,9 +1,8 @@
 # Dev
 ## Issues
 - Work on plugin manifest and OpenAPI spec descriptions
-- Deploy on normal url (GCP load balancer + cloudflare)
+- Change deployment URL
 - Add prettier
-- Finish GCP deployment setup
 - Add eslint
 - Add handling of binary files upload/read/write (right now the read/write is handling utf-8 data) - https://tsoa-community.github.io/docs/file-upload.html
 - Expose more environment methods and parameters
@@ -18,13 +17,10 @@
 - Add issue/PR templates
 - Improve README.md
 - Add support for function calling OpenAI API
-- Explain how to contribute - what commands to call to generate and which docs/strings to modify to add to spec
-- **Move to ubuntu**
-- **Fix clock drift**
-- Fix devbookd freeze
-- Manually check all envs
 - Add url of the localhost server to the spec only in dev env
-- Post request confirmation flow
+- Post request confirmation flow?
+- Prepare for "install unverified plugin"
+- Publish plugin
 - Remove text body parsers? (chatGPT doesn't play well with plain text body)
 - Make issues from user issues
 - Can we document the response without creating return types?
