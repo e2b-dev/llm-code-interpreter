@@ -20,6 +20,7 @@ Click on the image to watch the demo
 
 We give your ChatGPT instance access to a full cloud environment that's sandboxed. That means:
 - Access to Linux OS
+- Install programs
 - Using filesystem (create, list, and delete files and dirs)
 - Run processes
 - Sandboxed - you can run any code
@@ -51,6 +52,7 @@ Here is a few ideas what you can do with these commands:
 
   Please open an issue if you want us to support another language
 
+- Install headless chrome (go wild!)
 - Run databases
 - Start servers
 - Run terminal commands
