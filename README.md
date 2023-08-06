@@ -28,6 +28,8 @@ We give your ChatGPT instance access to a full cloud environment that's sandboxe
 
 These cloud instances are meant to be used for agents. Like a sandboxed playgrounds, where the agent can do whatever it wants.
 
+👉 **This plugin is powered by the E2B API. If you'd like an early access, [join our Discord](https://discord.gg/U7KEcGErtQ) and send us a message!** 👈
+
 ## ❓ What can I do with this plugin?
 This plugin exposes 3 simple commands (see the [OpenAPI file](https://github.com/e2b-dev/chatgpt-plugin/blob/main/openapi.yaml)):
 - `RunCommand`
