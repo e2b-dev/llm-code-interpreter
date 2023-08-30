@@ -10,6 +10,8 @@
 	</p>
 
 
+<h3 align="center">Build apps like this with E2B's <a href="https://e2b.dev/docs" target="_blank">AI Playgrounds</a></h3>
+
 <p align="center">
 Click on the image to watch the demo
 </p>
