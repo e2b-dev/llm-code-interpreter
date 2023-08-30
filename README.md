@@ -77,10 +77,12 @@ To install the required packages for this plugin, run the following command:
 npm install
 ```
 
-To run the plugin, enter the following command:
+To run the plugin, you will need **API Key**. Click [here](https://e2b.dev/docs?reason=sdk-missing-api-key) to get your API key.
+
+Then enter the following command:
 
 ```bash
-npm run dev
+E2B_API_KEY=*** npm run dev
 ```
 
 Once the local server is running:

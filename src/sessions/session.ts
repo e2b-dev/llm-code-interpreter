@@ -38,6 +38,7 @@ export class CachedSession {
   constructor(envID: string) {
     this.session = new Session({
       id: envID,
+      apiKey: process.env.E2B_API_KEY,
       onClose: () => {
         this.delete()
       },

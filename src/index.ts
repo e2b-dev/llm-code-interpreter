@@ -15,6 +15,9 @@ import { readFileSync } from 'fs'
 import { RegisterRoutes } from './generated/routes'
 import { defaultPort } from './constants'
 
+const apiKey = process.env.E2B_API_KEY
+if (!apiKey) throw new Error('E2B_API_KEY is not set. Please visit https://e2b.dev/docs?reason=sdk-missing-api-key to get your API key.')
+
 export const app = express()
 
 app.use(
