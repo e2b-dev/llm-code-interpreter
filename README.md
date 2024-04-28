@@ -1,5 +1,6 @@
 
-  <h1 align="center">Code Interpreter on steroids for ChatGPT (by e2b)</h1>
+  <h1 align="center">DEPRECATED - visit <a href="https://github.com/e2b-dev/code-interpreter">Code Interpreter SDK</a> instead</h1>
+  	<h3 align="center">Code Interpreter on steroids for ChatGPT (by e2b)</h3>
 	<p align="center">
 		<a href="https://discord.gg/U7KEcGErtQ" target="_blank">
 			<img src="https://img.shields.io/static/v1?label=Join&message=%20discord!&color=mediumslateblue">
